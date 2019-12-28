@@ -11,10 +11,23 @@
 |
 */
 
+require_once('mail_routes.php');
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('sendattachmentemail','HomeController@attachment_email');
+
+Route::get('/mail', function () {
+    return view('mail');
+});
+
+// Route::get('/sign-up/individual', [
+//     'as' => 'register.individual',
+//     'uses' => 'Auth\SignUpController@individual'
+// ]);

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Mail;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -13,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -24,5 +28,17 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function attachment_email() {
+        $data = array('name'=>"Virat Gandhi");
+        Mail::send('mail', $data, function($message) {
+           $message->to('kithomeken@gmail.com', 'Kennedy Kithome')->subject
+              ('Laravel Testing Mail with Attachment');
+           $message->embed('C:\wamp64\www\stock\public\img\icons\5511031TOqFD1502285018.jpg');
+        //    $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
+           $message->from('xyz@gmail.com','Virat Gandhi');
+        });
+        echo "Email Sent with attachment. Check your inbox.";
     }
 }

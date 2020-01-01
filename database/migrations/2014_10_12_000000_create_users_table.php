@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('designation');
             $table->string('msisdn')->unique();
             $table->string('avatar')->nullable();
-            $table->string('is_active')->default('Y');
+            $table->string('is_active')->default('N');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

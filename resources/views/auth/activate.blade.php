@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }}</title>
+    <title>Account Activation</title>
 
     <!-- Scripts -->
     <script src="{{asset('js/jquery.min.js')}}"></script>
@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="{{asset('css/font.nunito.css')}}">
 
     <!-- Fontawesome Icons -->
-    {{-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"> --}}
     <script src="{{asset('fontawesome_pro/js/all.js')}}"></script>
     <link href="{{ asset('fontawesome_pro/css/all.css') }}" rel="stylesheet">
 
@@ -33,102 +32,107 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
+
+    <script>
+        window.addEventListener( "pageshow", function ( event ) {
+            var historyTraversal = event.persisted || 
+                ( typeof window.performance != "undefined" && 
+                    window.performance.navigation.type === 2 );
+            if ( historyTraversal ) {
+                // Handle page restore.
+                window.location.reload();
+            }
+        });
+    </script>
 </head>
 <body>
     <div id="app" class="fill">
-
-        <main class="row ml-0 mr-0 justify-content-center">
+        <div class="w-100">
             @if ($status == 200)
-                <div class="col-md-5 py-5 cont" style="height: 100vh" id="valid_signature">
-                    <div class="w-100 px-4">
-                        <h3 class="mb-0 text-success">Hello {{ $user->first_name }},</h3>
-                        <h4>Welcome to {{ env('APP_COMPANY') }}'s FTTH flock</h4>
+                <main class="row ml-0 mr-0 justify-content-center activate-art right-cover-image">
+                    <div class="col-lg-4 py-5 cont" style="background: transparent" id="valid_signature">
+                        <div class="card border-0 w-100">
+                            <div class="card-body">
+                                <h3 class="mb-0 text-success">Hello {{ $user->first_name }},</h3>
+                                <h4 class="mb-1">Welcome to {{ env('APP_COMPANY') }}'s FTTH flock</h4>
 
-                        <div class="py-1">
-                            <p>Your account setup is almost complete. All that's left is adding your preferred password and you're good to go.</p>
-                        </div>
-
-                        <div class="py-0">
-                            <form action="{{ route('register') }}" method="post">
-                                @csrf
-
-                                <div class="row ml-0 mr-0 justify-content-center">
-                                    <div class="col-md-8 mb-1">
-                                        <span>E-mail Address: </span>
-                                        <span class="ml-4"><b>{{ $user->email }}</b></span>
-                                        <input type="hidden" name="email" value="{{ $user->email }}">
-                                    </div>
+                                <div class="py-1">
+                                    <p class="mb-1 font-small text-center">Your account setup is almost complete. All that's left is adding your preferred password and you're good to go.</p>
                                 </div>
 
-                                <div class="row ml-0 mr-0 mb-3 justify-content-center">
-                                    <label for="password" class="col-md-8 col-form-label">{{ __('Password') }}</label>
+                                <div class="py-0">
+                                    <form action="{{ route('register') }}" method="post">
+                                        @csrf
 
-                                    <div class="col-md-8">
-                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                        <div class="row ml-0 mr-0 justify-content-center">
+                                            <div class="col-md-9 mb-1">
+                                                <span class="text-success"><b>{{ $user->email }}</b></span>
+                                                <input type="hidden" name="email" value="{{ $user->email }}">
+                                            </div>
+                                        </div>
 
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <div class="row ml-0 mr-0 mb-3 justify-content-center">
+                                            <label for="password" class="col-md-9 col-form-label">{{ __('Password') }}</label>
+
+                                            <div class="col-md-9">
+                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row ml-0 mr-0 justify-content-center mb-4">
+                                            <label for="password-confirm" class="col-md-9 col-form-label">{{ __('Confirm Password') }}</label>
+
+                                            <div class="col-md-9">
+                                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                            </div>
+                                        </div>
+
+                                        <div class="row ml-0 mr-0 justify-content-center pt-1">
+                                            <div class="col-md-5">
+                                                <button type="submit" class="btn btn-success w-100">Complete</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-
-                                <div class="row ml-0 mr-0 justify-content-center mb-4">
-                                    <label for="password-confirm" class="col-md-8 col-form-label">{{ __('Confirm Password') }}</label>
-
-                                    <div class="col-md-8">
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                                    </div>
-                                </div>
-
-                                <div class="row ml-0 mr-0 justify-content-center pt-1">
-                                    <div class="col-md-5">
-                                        <button type="submit" class="btn btn-success w-100">Complete</button>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                        
+                    <div class="col-lg-7">
+
+                    </div>
+                </main>
             @else
-                <div class="col-md-5 py-5 cont" style="height: 100vh" id="invalid_signature">
-                    <div class="w-100">
-                        <div class="py-2">
-                            <img src="{{ asset('img/error/401.jpg') }}" class="image-center" alt="401" srcset="" height="180px" width="auto">
-                        </div>
+                <main class="row ml-0 mr-0 justify-content-center activate-error-art right-cover-image">
+                    <div class="col-lg-4 py-5 cont" style="height: 100vh" id="invalid_signature">
+                        <div class="w-100">
+                            <div class="py-2">
+                                <img src="{{ asset('img/error/401.jpg') }}" class="image-center" alt="401" srcset="" height="180px" width="auto">
+                            </div>
 
-                        <h3 class="mb-0 text-danger text-center">Oops..! <br> Error 401</h3>
-                        <h4 class="text-center">Something went wrong here</h4>
+                            <h3 class="mb-0 text-danger text-center">Oops..! <br> Error {{ $status }}</h3>
+                            <h4 class="text-center">Something went wrong</h4>
 
-                        <div class="py-1 px-3">
-                            <p>The activation link you followed is probably broken or the page has been temporarily moved. If this error persists, kindly contact your administrator...</p>
-                        </div>
-
-                        <div class="w-50 m-auto pt-2">
-                            <a href="{{ route('login') }}" class="btn btn-danger w-100">Back to Sign In</a>
+                            <div class="py-1 px-3">
+                                <p class="text-center">The activation link you followed is probably broken or the link's lifespan has expired. Kindly request for a new activation link from your administrator.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="col-lg-6">
+
+                    </div>
+                </main>
             @endif
 
-            <div class="col-md-7 crystal_clear">
-
-            </div>
-        </main>
+        </div>
     
     </div>
-
-<script>
-    window.addEventListener( "pageshow", function ( event ) {
-        var historyTraversal = event.persisted || 
-            ( typeof window.performance != "undefined" && 
-                window.performance.navigation.type === 2 );
-        if ( historyTraversal ) {
-            // Handle page restore.
-            window.location.reload();
-        }
-    });
-</script>
 </body>
 </html>

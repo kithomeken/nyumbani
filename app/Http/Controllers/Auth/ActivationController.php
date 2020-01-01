@@ -109,14 +109,21 @@ class ActivationController extends Controller
     }
 
     public function activate($id, $hash, Request $request) {
+        # User's Details
+        $user = User::where('id', $id)->first();
+
         if (! $request->hasValidSignature()) {
             $status = 401;
+
+            if ($user->email_verified_at !== null) {
+                # Account is activated
+                return redirect('/login');
+            }
+
+            return view('auth.activate', compact('status'));
         } else {
             # Check if token is valid
             $validate = Activation::where('user_id', $id)->where('token', $hash)->first();
-
-            # User's Details
-            $user = User::where('id', $id)->first();
 
             if ($hash == $validate->token) {
                 if ($user->email_verified_at !== null) {

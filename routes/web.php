@@ -27,6 +27,13 @@ Route::get('/mail', function () {
     return view('mail');
 });
 
+Route::get('/pink', function () {
+
+    Session::flash('success', 'This is a message!'); 
+    return redirect('/home');
+});
+
+
 // Route::get('/sign-up/individual', [
 //     'as' => 'register.individual',
 //     'uses' => 'Auth\SignUpController@individual'

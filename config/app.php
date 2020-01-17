@@ -13,7 +13,20 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Company Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of the client comany. This value is used when the
+    | framework needs to place the company's name in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    'company' => env('APP_COMPANY'),
 
     /*
     |--------------------------------------------------------------------------

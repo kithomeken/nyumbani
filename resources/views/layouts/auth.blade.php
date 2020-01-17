@@ -18,11 +18,10 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/font.nunito.css')}}">
 
     <!-- Fontawesome Icons -->
-    {{-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"> --}}
     <script src="{{asset('fontawesome_pro/js/all.js')}}"></script>
     <link href="{{ asset('fontawesome_pro/css/all.css') }}" rel="stylesheet">
 

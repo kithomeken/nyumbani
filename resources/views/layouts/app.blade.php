@@ -10,71 +10,98 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/popper.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/chosen.min.js')}}"></script>
+    <script src="{{asset('js/validate.jquery.js')}}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <!-- Fontawesome Icons -->
+    <script src="{{asset('fontawesome_pro/js/all.js')}}"></script>
+    <link href="{{ asset('fontawesome_pro/css/all.css') }}" rel="stylesheet">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app-base.css') }}" rel="stylesheet">
+
+    <!-- Chosen -->
+    <link rel="stylesheet" href="{{asset('css/chosen.css')}}">
+    <link rel="stylesheet" href="{{asset('css/chosen-bootstrap.css')}}">
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+
+    <!-- Datatables -->
+    <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+
+    <!-- CKEditor -->
+    <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script>
+
+    <style>
+        .dropdown-toggle:after{
+            content: none
+        }
+        .chosen-container {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 13px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            width: 100% !important;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        
+        @include('layouts.navigation')
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+        <div id="main-content">
 
-                    </ul>
+            @include('layouts.top-navigation')
+            
+            <main class="py-3 mt-56 pl-3">
+                @yield('content')
+            </main>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+            @include('layouts.footer')
+        </div>
     </div>
+
+    @include('tickets.modals.new_ticket')
+
+    @stack('script')
+
+<script>
+$(document).ready(function() {
+    successMessage = "{{ session('success') }}"
+    errorMessage = "{{ session('error') }}"
+
+    if (successMessage != '') {
+        toastr.success("{{ session('success') }}", 'Success!', {timeOut: 5000})
+    }
+
+    if (errorMessage != '') {
+        toastr.error("{{ session('error') }}", 'Error!', {timeOut: 5000})
+    }
+
+    $('.selection').chosen();
+    $('.selection').trigger("chosen:updated");
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+})
+</script>
 </body>
 </html>

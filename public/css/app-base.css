@@ -1,0 +1,208 @@
+body{background-color: #F4F5F6!important;}
+a{text-decoration: none!important;}
+#navigation{
+    width: 60px;
+    height: 100vh;
+    background: #ECECEC;
+    float: left;
+    display: block !important;
+    position: fixed !important;
+    overflow: auto;
+    left: 0;
+    top: 0;
+    z-index: 3;
+}
+#main-content {
+    margin-left: 60px!important;
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-radius: 0.2rem;
+    border: 1px solid #27AE60!important;
+    outline: 0;
+    box-shadow: none;
+}
+/* .btn:focus {
+    outline: 0;
+    box-shadow: none;
+} */
+.ml-60 {
+    margin-left: 60px!important;
+}
+.mt-56 {
+    margin-top: 56px!important;
+}
+.text-success{
+    color: #0BC619!important;
+}
+.text-muted {
+    color: #AFB5C1!important
+}
+.btn-success {
+    color: #fff;
+    background-color: #27AE60!important;
+    border-color: #27AE60!important;
+}
+.dropdown-md{
+    width: 270px;
+}
+.dropdown-search{
+    width: 290px;
+    background: #D5D8DC;
+}
+.dropdown-menu .with-arrow {
+    position: absolute;
+    height: 10px;
+    overflow: hidden;
+    width: 40px;
+    top: -10px;
+}
+.primary-color {
+    background: #0BC619;
+}
+.dropdown-menu.dropdown-menu-right .with-arrow {
+    right: 0;
+}
+.dropdown-menu.dropdown-menu-right .with-arrow > span {
+    right: 20px;
+    /* left: auto; */
+}
+.dropdown-menu .with-arrow > span {
+    transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    width: 15px;
+    height: 15px;
+    top: 3px;
+    left: 15px;
+    position: absolute;
+    content: "";
+    border-radius: 6px 0 0;
+}
+.dropdown-item:hover, .dropdown-item:focus {
+    color: #16181b!important;
+    text-decoration: none;
+    background:#f8f9fa !important;
+}
+.font-small{
+    font-size: small
+}
+.font-medium{
+    font-size: medium
+}
+.font-large{
+    font-size: large
+}
+.font-bold{
+    font-weight: 600;
+}
+.border-radius-top-only {
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+.notifications .notification-center {
+    max-height: 317px;
+    overflow: auto;
+    position: relative;
+}
+.notification-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: block;
+    text-decoration: none;
+    padding: 9px 15px;
+    width: 100%;    
+}
+.notification-content span {
+    display: block;
+    width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.notification-content .notification-main {
+    font-size: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.notification-item:hover {
+    text-decoration: none;
+    background: #EFEFEF;
+}
+.notification-bucket .item:hover {
+    text-decoration: none;
+    background: #EFEFEF;
+}
+.notification-count {
+    background: #FFF;
+    color: #0BC619;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: smaller;
+}
+.list-style-none{
+    list-style: none!important;
+}
+.nyumbani-search {
+    width: auto;
+}
+.search-me > .input-group-text {
+    color: #FFF!important;
+    background-color:#0BC619!important;
+    border: 1px solid  #27AE60!important;
+}
+#navigation .logo-icon {
+    width: 60px;
+    height: 56px;
+    background:#0BC619;
+}
+#navigation .icon-disp {
+    margin: 0;
+    top: 0;
+    left: 0;
+    align-items: center;
+    display: grid;
+    justify-items: center;
+}
+#navigation .icon-font {
+    width: 60px;
+    height: 60px;
+}
+.ticket-rotate {
+    transform: rotate(-45deg);
+}
+#navigation .icon-link {
+    text-decoration: none;
+    color: #808B96!important;
+    background: inherit;
+}
+#navigation .icon-link:hover {
+    text-decoration: none;
+    color: #808B96!important;
+    background: #DDDDDD;
+}
+.big-disp {
+    background-color: #20bf55;
+    background-image: linear-gradient(315deg, #7FB3D5 0%, #75D19C 74%);
+}
+.statistics tbody tr td span {
+    display: block;
+}
+.image-center {
+    display: block;
+    text-align: center;
+    margin: auto;
+}
+.th-theme {
+    background: #D7FAD9;
+}
+.footer{
+    padding: 2rem 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid#e5e5e5;
+}

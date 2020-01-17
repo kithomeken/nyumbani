@@ -67,7 +67,7 @@
 <body>
     <div class="container-fluid px-0 gradient-1">
         <div class="container pt-3 pb-2 text-white">
-            <img class="mb-2 center-image" src="{{ $message->embed(public_path().'\img\icons\D0056F16B6DD853E5155DCFD79911271.png') }}" alt="logo" srcset="" height="45px" width="auto">
+            <img class="mb-2 center-image" src="{{ $message->embed(public_path().'/img/icons/D0056F16B6DD853E5155DCFD79911271.png') }}" alt="logo" srcset="" height="45px" width="auto">
             <h3 class="text-center">Karibu Nyumbani</h3>
             <h5 class="text-center font-small">Welcome Home</h5>
         </div>

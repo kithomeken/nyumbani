@@ -60,17 +60,17 @@ class ActivationController extends Controller
             'expire_at' => $expire_at
         ]);
 
-        # Activation URL
+        # Generate Activation URL
         $activationURL = $this->activationUrl($user->id, $token);
 
         # Send Activation Mail
-        $GLOBALS['emailTo'] = $request['email'];
-        $GLOBALS['receiver'] = $request['first_name'] .' '. $request['last_name'];
         $activationMail = $this->activationMail($request, $activationURL);
 
         if ($activationMail) {
             # Notifiy user of account creation and mail send
             return redirect()->back()->with('AccountCreation', 'Account created successfully');
+        } else {
+            return $activationMail;
         }
     }
 
@@ -86,9 +86,9 @@ class ActivationController extends Controller
         );
     }
 
-    public function activationMail($input, $activationURL) {
-        $emailTo = $input['email'];
-        $receiver = $input['first_name'] .' '. $input['last_name'];
+    public function activationMail($request, $activationURL) {
+        $emailTo = $request['email'];
+        $receiver = $request['first_name'] .' '. $request['last_name'];
 
         $data = array(
             'name' => $receiver,
@@ -96,8 +96,8 @@ class ActivationController extends Controller
         );
 
         try {
-            Mail::send('emails.activation', $data, function($message) {
-                $message->to($GLOBALS['emailTo'] , $GLOBALS['receiver'] )
+            Mail::send('emails.activation', $data, function($message) use ($emailTo, $receiver) {
+                $message->to($emailTo, $receiver)
                     ->subject(env('APP_NAME') .' Account Activation');
                 $message->from('noreply@nyumbani.com','Nyumbani Team');
             }); 

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom fixed-top ml-60">
     <div class="container-fluid">
-        <a class="navbar-brand pl-3 text-secondary" href="{{ url('/') }}">
-            <small>{{ config('app.name') }} {{ config('app.company') }}</small>
+        <a class="navbar-brand pl-3 text-secondary mr-5" href="{{ url('/') }}">
+            <small>{{ config('app.name') }} <sup><span class="fal fa-copyright mr-2"></span></sup></small>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -50,15 +50,17 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown border-right">
-                        <a id="launchNewTicket" class="nav-link dropdown-toggle mr-1 py-1" href="#" role="button" aria-haspopup="true" aria-expanded="false" v-pre data-toggle="modal" data-target="#newTicketModal">
-                            <div class="align-items-center mr-2">
-                                <button type="button" class="btn btn-outline-success btn-sm">
-                                    <span class="fal fa-plus mr-1"></span> Create Ticket
-                                </button>
-                            </div>
-                        </a>
-                    </li>
+                    @if (empty($disable))
+                        <li class="nav-item dropdown border-right">
+                            <a id="create_ticket" class="nav-link dropdown-toggle mr-1 py-1" href="{{ route('ticket.create') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <div class="align-items-center mr-2">
+                                    <button type="button" class="btn btn-outline-success btn-sm">
+                                        <span class="fal fa-plus mr-1"></span> Create Ticket
+                                    </button>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
 
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle ml-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

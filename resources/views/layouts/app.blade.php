@@ -7,15 +7,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @yield('title')
 
     <!-- Scripts -->
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/chosen.min.js')}}"></script>
-    <script src="{{asset('js/validate.jquery.js')}}"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="{{asset('js/validate.min.js')}}"></script>
 
     <!-- Fontawesome Icons -->
     <script src="{{asset('fontawesome_pro/js/all.js')}}"></script>
@@ -42,6 +41,7 @@
     <script src="{{ asset('js/datatables.min.js') }}"></script>
 
     <!-- CKEditor -->
+    {{-- <script src="{{ asset('js/ckeditor.min.js') }}"></script> --}}
     <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script>
 
     <style>

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>{{ config('app.name') }} Home</title>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="w-100 pl-3 py-1">

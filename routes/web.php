@@ -2,39 +2,47 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| External Route Files
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
 require_once('mail_routes.php');
 
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('/home');
 });
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('sendattachmentemail','HomeController@attachment_email');
-
-Route::get('/mail', function () {
-    return view('mail');
+Route::get('/home', function(){
+    return redirect('/u/default/dashboard');
 });
 
-Route::get('/pink', function () {
+Route::group(['prefix' => 'u/default', 'middleware' => 'auth'], function(){
 
+    Route::get('/dashboard', 'HomeController@index')->name('home');
+
+    Route::get('/tickets/create', 'TicketsController@createTicket')->name('ticket.create');
+
+    // Route::get('/tickets/queue/id/{id}', [
+    //     'uses'  => 'TicketsController@viewTicket',
+    //     'as'    => 'view-ticket'
+    // ]);    
+});
+
+
+
+
+
+Route::get('/pink', function () {
     Session::flash('success', 'This is a message!'); 
     return redirect('/home');
 });
-
-
-// Route::get('/sign-up/individual', [
-//     'as' => 'register.individual',
-//     'uses' => 'Auth\SignUpController@individual'
-// ]);

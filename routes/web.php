@@ -7,6 +7,7 @@
 */
 
 require_once('mail_routes.php');
+require_once('settings_routes.php');
 
 
 /*
@@ -30,12 +31,7 @@ Route::group(['prefix' => 'u/default', 'middleware' => 'auth'], function(){
 
     Route::get('/dashboard', 'HomeController@index')->name('home');
 
-    Route::get('/tickets/create', 'TicketsController@createTicket')->name('ticket.create');
-
-    // Route::get('/tickets/queue/id/{id}', [
-    //     'uses'  => 'TicketsController@viewTicket',
-    //     'as'    => 'view-ticket'
-    // ]);    
+    Route::get('/tickets/create', 'TicketsController@createTicket')->name('ticket.create');  
 });
 
 

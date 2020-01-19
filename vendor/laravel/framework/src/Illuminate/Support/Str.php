@@ -41,7 +41,7 @@ class Str
     protected static $uuidFactory;
 
     /**
-     * Return the remainder of a string after a given value.
+     * Return the remainder of a string after the first occurrence of a given value.
      *
      * @param  string  $subject
      * @param  string  $search
@@ -50,6 +50,28 @@ class Str
     public static function after($subject, $search)
     {
         return $search === '' ? $subject : array_reverse(explode($search, $subject, 2))[0];
+    }
+
+    /**
+     * Return the remainder of a string after the last occurrence of a given value.
+     *
+     * @param  string  $subject
+     * @param  string  $search
+     * @return string
+     */
+    public static function afterLast($subject, $search)
+    {
+        if ($search === '') {
+            return $subject;
+        }
+
+        $position = strrpos($subject, (string) $search);
+
+        if ($position === false) {
+            return $subject;
+        }
+
+        return substr($subject, $position + strlen($search));
     }
 
     /**
@@ -75,7 +97,7 @@ class Str
     }
 
     /**
-     * Get the portion of a string before a given value.
+     * Get the portion of a string before the first occurrence of a given value.
      *
      * @param  string  $subject
      * @param  string  $search
@@ -84,6 +106,28 @@ class Str
     public static function before($subject, $search)
     {
         return $search === '' ? $subject : explode($search, $subject)[0];
+    }
+
+    /**
+     * Get the portion of a string before the last occurrence of a given value.
+     *
+     * @param  string  $subject
+     * @param  string  $search
+     * @return string
+     */
+    public static function beforeLast($subject, $search)
+    {
+        if ($search === '') {
+            return $subject;
+        }
+
+        $pos = mb_strrpos($subject, $search);
+
+        if ($pos === false) {
+            return $subject;
+        }
+
+        return static::substr($subject, 0, $pos);
     }
 
     /**
@@ -238,7 +282,7 @@ class Str
      * Limit the number of characters in a string.
      *
      * @param  string  $value
-     * @param  int     $limit
+     * @param  int  $limit
      * @param  string  $end
      * @return string
      */
@@ -266,7 +310,7 @@ class Str
      * Limit the number of words in a string.
      *
      * @param  string  $value
-     * @param  int     $words
+     * @param  int  $words
      * @param  string  $end
      * @return string
      */
@@ -297,7 +341,7 @@ class Str
      * Get the plural form of an English word.
      *
      * @param  string  $value
-     * @param  int     $count
+     * @param  int  $count
      * @return string
      */
     public static function plural($value, $count = 2)
@@ -309,7 +353,7 @@ class Str
      * Pluralize the last word of an English, studly caps case string.
      *
      * @param  string  $value
-     * @param  int     $count
+     * @param  int  $count
      * @return string
      */
     public static function pluralStudly($value, $count = 2)
@@ -346,7 +390,7 @@ class Str
      * Replace a given value in the string sequentially with an array.
      *
      * @param  string  $search
-     * @param  array   $replace
+     * @param  array  $replace
      * @param  string  $subject
      * @return string
      */
@@ -606,7 +650,7 @@ class Str
     /**
      * Set the callable that will be used to generate UUIDs.
      *
-     * @param  callable
+     * @param  callable  $factory
      * @return void
      */
     public static function createUuidsUsing(callable $factory = null)

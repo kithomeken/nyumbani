@@ -132,7 +132,7 @@
                             </span>
 
                             <div class="w-100 py-2 primary-color px-4 border-radius-top-only">
-                                <span class="text-left text-white mb-0">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span><br>
+                                <span class="text-left text-white mb-0">{{ Auth::user()->first_name }} {{ Auth::user()->other_name }} {{ Auth::user()->last_name }}</span><br>
                                 <span class="text-left text-white">{{ Auth::user()->email }}</span>
                             </div>
 

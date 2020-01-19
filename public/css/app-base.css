@@ -209,3 +209,27 @@ a{text-decoration: none!important;}
     position: relative;
     width: 100%;
 }
+.setting-list > li {
+    border-right: 0.25rem solid #FFF;
+}
+.setting-list > li:hover {
+    text-decoration: none;
+    background: #EFEFEF;
+    border-right: 0.25rem solid #EFEFEF;
+}
+.setting-list > .active {
+    border-right: 0.25rem solid limegreen;
+    color: #0BC619!important
+}
+.setting-list > .active:hover {
+    background: #FFF!important;
+    border-right: 0.25rem solid limegreen;
+    color: #0BC619!important
+}
+.table-sm th, .table-sm td {
+    padding: 0.5rem!important;
+}
+table.dataTable.no-footer {
+    border-bottom: 0px;
+}
+

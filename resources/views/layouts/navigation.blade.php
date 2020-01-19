@@ -10,6 +10,13 @@
             </div>
         </a>
 
+        {{-- ESCALATION MATRIX --}}
+        <a href="" class="icon-link icon-disp">
+            <div class="icon-disp icon-font">
+                <span class="fal fa-exclamation-circle fa-lg"></span>
+            </div>
+        </a>
+
         <a href="" class="icon-link icon-disp">
             <div class="icon-disp icon-font">
                 <span class="fal fa-chart-pie fa-lg"></span>
@@ -21,6 +28,7 @@
                 <span class="fal fa-mailbox fa-lg"></span>
             </div>
         </a>
+        
 
         <a href="" class="icon-link icon-disp">
             <div class="icon-disp icon-font">
@@ -28,7 +36,7 @@
             </div>
         </a>
 
-        <a href="" class="icon-link icon-disp">
+        <a href="{{ route('settings.index') }}" class="icon-link icon-disp">
             <div class="icon-disp icon-font">
                 <span class="fal fa-cog fa-lg"></span>
             </div>

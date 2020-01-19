@@ -24,6 +24,10 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600&display=swap" rel="stylesheet">
 
+    <!-- Datatables -->
+    <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app-base.css') }}" rel="stylesheet">
@@ -35,10 +39,6 @@
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <script src="{{ asset('js/toastr.min.js') }}"></script>
-
-    <!-- Datatables -->
-    <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
-    <script src="{{ asset('js/datatables.min.js') }}"></script>
 
     <!-- CKEditor -->
     {{-- <script src="{{ asset('js/ckeditor.min.js') }}"></script> --}}

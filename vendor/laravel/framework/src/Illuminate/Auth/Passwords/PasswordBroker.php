@@ -51,11 +51,13 @@ class PasswordBroker implements PasswordBrokerContract
         // "flash" data in the session to indicate to the developers the errors.
         $user = $this->getUser($credentials);
 
-        # Check if account is active.
         if (is_null($user)) {
             return static::INVALID_USER;
-        } else if ($user->is_active == 'N') {
-            return static::NOT_ACTIVATED;
+        }
+
+        if (method_exists($this->tokens, 'recentlyCreatedToken') &&
+            $this->tokens->recentlyCreatedToken($user)) {
+            return static::RESET_THROTTLED;
         }
 
         // Once we have the reset token, we are ready to send the message out to this
@@ -141,7 +143,7 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Create a new password reset token for the given user.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
      * @return string
      */
     public function createToken(CanResetPasswordContract $user)
@@ -152,7 +154,7 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Delete password reset tokens of the given user.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
      * @return void
      */
     public function deleteToken(CanResetPasswordContract $user)
@@ -163,8 +165,8 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Validate the given password reset token.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
-     * @param  string $token
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string  $token
      * @return bool
      */
     public function tokenExists(CanResetPasswordContract $user, $token)

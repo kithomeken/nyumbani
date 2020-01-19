@@ -28,18 +28,18 @@ interface PasswordBroker
     const INVALID_USER = 'passwords.user';
 
     /**
-     * Constant representing unactivated accounts response.
-     *
-     * @var string
-     */
-    const NOT_ACTIVATED = 'This account is not active. Kindly contact your administrator';
-
-    /**
      * Constant representing an invalid token.
      *
      * @var string
      */
     const INVALID_TOKEN = 'passwords.token';
+
+    /**
+     * Constant representing a throttled reset attempt.
+     *
+     * @var string
+     */
+    const RESET_THROTTLED = 'passwords.throttled';
 
     /**
      * Send a password reset link to a user.
@@ -52,7 +52,7 @@ interface PasswordBroker
     /**
      * Reset the password for the given token.
      *
-     * @param  array     $credentials
+     * @param  array  $credentials
      * @param  \Closure  $callback
      * @return mixed
      */

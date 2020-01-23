@@ -5,7 +5,7 @@
 |--------------------------------------------------------------------------
 */
 
-Route::group(['prefix' => 'u/default/settings', 'middleware' => ['auth', 'verified']], function(){
+Route::group(['prefix' => 'u/default/settings', 'middleware' => ['auth', 'verified',]], function(){
     
     Route::get('/', 'settings\SettingsController@index')->name('settings.index');
 

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EscalationTeam extends Model
+class EscalationType extends Model
 {
     protected $fillable = [
-        'user_id', 'name', 'email', 'designation', 'msisdn'
+        'ticket_description', 'ticket_code', 'system_defined',
     ];
 }

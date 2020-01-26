@@ -9,6 +9,7 @@ return array(
     'App\\Activation' => $baseDir . '/app/Activation.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\EscalationTeam' => $baseDir . '/app/EscalationTeam.php',
+    'App\\EscalationType' => $baseDir . '/app/EscalationType.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ActivationController' => $baseDir . '/app/Http/Controllers/Auth/ActivationController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',

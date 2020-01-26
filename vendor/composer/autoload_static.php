@@ -512,6 +512,7 @@ class ComposerStaticInitdf943a46879f18cf872a0f93b6112dee
         'App\\Activation' => __DIR__ . '/../..' . '/app/Activation.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\EscalationTeam' => __DIR__ . '/../..' . '/app/EscalationTeam.php',
+        'App\\EscalationType' => __DIR__ . '/../..' . '/app/EscalationType.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ActivationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ActivationController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',

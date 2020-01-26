@@ -25,6 +25,7 @@
 
             <div class="tab-content" id="ticketTabContent">
                 <div class="tab-pane fade show active px-4 py-3" id="parameters" role="tabpanel" aria-labelledby="parameters">
+                    {{-- TICKET TYPE --}}
                     <div class="form-group w-100">
                         <h5 class="text-secondary">Ticket Type</h5>
 
@@ -34,61 +35,16 @@
                             </div>
 
                             <div class="col-md-3">
-                                <button id="add_ticket_type" class="btn w-100 btn-primary btn-sm">Add Ticket Type</button>
+                                <button id="add_ticket_type" class="btn w-100 btn-primary btn-sm" data-toggle="modal" data-target="#ticket_type_modal">Add Ticket Type</button>
                             </div>
-                        </div>
-
-                        <div class="w-100 form-group bg-light pt-1 pb-3" id="type_form">
-                            <form action="{{ route('settings.addType') }}" method="post" class="w-100">
-                                @csrf
-                                <input type="hidden" name="system_defined" value="Y">
-
-                                <div class="row ml-0 mr-0 mt-2">
-                                    <div class="col-md-9">
-                                        <span class="text-secondary">Add a ticket type</span>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <button type="button" class="close float-right" id="type_close">
-                                            <span aria-hidden="true" class="font-small">Close</span>
-                                        </button>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="t_description" class="col-form-label text-md-right">{{ __('Description') }}  <sup class="text-danger">*</sup></label>
-                                        <input id="t_description" type="text" class="form-control @error('t_description') is-invalid @enderror form-control-sm" name="t_description" value="{{ old('t_description') }}" required autocomplete="off" autofocus>
-
-                                        @error('t_description')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label for="short_code" class="col-form-label text-md-right">{{ __('Short Code') }}  <sup class="text-danger">*</sup></label>
-                                        <input id="short_code" type="text" class="form-control @error('short_code') is-invalid @enderror form-control-sm" name="short_code" value="{{ old('short_code') }}" required autocomplete="off" autofocus>
-
-                                        @error('short_code')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-2 pt-3">
-                                        <button id="submit_type" type="submit" class="btn mt-3 w-100 btn-primary btn-sm">Add Ticket Type</button>
-                                    </div>
-                                </div>
-                            </form>  
-                        </div>                      
+                        </div>                     
 
                         <div class="w-100 mt-2">
-                            <table class="table w-100 table-striped table-sm table-borderless">
+                            <table id="type_table" class="table w-100 table-striped table-sm table-borderless">
                                 <thead>
                                     <tr>
                                         <th style="width: 60%">Description</th>
-                                        <th style="width: 20%">Short Code</th>
+                                        <th style="width: 20%">Ticket Code</th>
                                         <th style="width: 20%">Action</th>
                                     </tr>
                                 </thead>
@@ -97,15 +53,63 @@
                                     @foreach ($ticketTypes as $type)
                                         <tr>
                                             <td>{{ $type->description }}</td>
-                                            <td>{{ $type->short_code }}</td>
+                                            <td>{{ $type->ticket_code }}</td>
 
                                             @if ($type->system_defined == 'Y')
                                                 <td>System Defined</td>
                                             @else
                                                 <td>
-                                                    <span id="edit_type" class="fal fa-edit edit-type text-primary"></span>
+                                                    <button class="btn btn-sm py-0 edit-type">
+                                                        <span id="edit_type" class="fal fa-edit text-primary"></span>
+                                                    </button>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                                                    <span id="delete_type" class="fal fa-trash-alt delete-type ml-3 text-danger"></span>
+                    <hr class="mt-5">
+
+                    {{-- TICKET STATUS --}}
+                    <div class="w-100 form-group">
+                        <h5 class="text-secondary">Ticket Progress Status</h5>
+
+                        <div class="row ml-0 mr-0 form-group">
+                            <div class="col-md-9 px-0">
+                                <span class="font-small text-secondary">Define progress status for your tickets</span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <button id="add_status" class="btn w-100 btn-primary btn-sm" data-toggle="modal" data-target="#status_modal">Add New Status</button>
+                            </div>
+                        </div>
+
+                        <div class="w-100 mt-2">
+                            <table id="status_table" class="table w-100 table-striped table-sm table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60%">Status Description</th>
+                                        <th style="width: 20%">Status Code</th>
+                                        <th style="width: 20%">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($ticketStatus as $status)
+                                        <tr>
+                                            <td>{{ $status->description }}</td>
+                                            <td>{{ $status->status_code }}</td>
+
+                                            @if ($status->system_defined == 'Y')
+                                                <td>System Defined</td>
+                                            @else
+                                                <td>
+                                                    <button class="btn btn-sm py-0 edit-status">
+                                                        <span id="edit_status" class="fal fa-edit text-primary"></span>
+                                                    </button>
                                                 </td>
                                             @endif
                                         </tr>
@@ -126,52 +130,8 @@
                             </div>
 
                             <div class="col-md-3">
-                                <button id="add_region" class="btn w-100 btn-primary btn-sm">Add New Region</button>
+                                <button id="add_region" class="btn w-100 btn-primary btn-sm" data-toggle="modal" data-target="#region_modal">Add New Region</button>
                             </div>
-                        </div>
-
-                        <div class="w-100 form-group bg-light pt-1 pb-3" id="region_form">
-                            <form action="{{ route('settings.addRegion') }}" method="post" class="w-100">
-                                @csrf
-
-                                <div class="row ml-0 mr-0 mt-2">
-                                    <div class="col-md-9">
-                                        <span class="text-secondary">Add New FTTH Region</span>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <button type="button" class="close float-right" id="region_close">
-                                            <span aria-hidden="true" class="font-small">Close</span>
-                                        </button>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="region_name" class="col-form-label text-md-right">{{ __('Region Name') }}  <sup class="text-danger">*</sup></label>
-                                        <input id="region_name" type="text" class="form-control @error('region_name') is-invalid @enderror form-control-sm" name="region_name" value="{{ old('region_name') }}" required autocomplete="off" autofocus>
-
-                                        @error('region_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label for="region_short" class="col-form-label text-md-right">{{ __('Region Short Name') }}  <sup class="text-danger">*</sup></label>
-                                        <input id="region_short" type="text" class="form-control @error('region_short') is-invalid @enderror form-control-sm" name="region_short" value="{{ old('region_short') }}" required autocomplete="off" autofocus>
-
-                                        @error('region_short')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-2 pt-3">
-                                        <button id="submit_region" type="submit" class="btn mt-3 w-100 btn-primary btn-sm">Add Region</button>
-                                    </div>
-                                </div>
-                            </form>  
                         </div>
 
                         <div class="w-100 mt-2">
@@ -179,7 +139,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 40%">Region Name</th>
-                                        <th style="width: 20%">Short Code</th>
+                                        <th style="width: 20%">Region Code</th>
                                         <th style="width: 20%">Completed</th>
                                         <th style="width: 20%">Action</th>
                                     </tr>
@@ -189,108 +149,7 @@
                                 </tbody>
                             </table>
                         </div>
-
-
-
                     </div>
-
-                    <hr class="mt-5">
-
-                    <div class="w-100 form-group">
-                        <h5 class="text-secondary">Ticket Progress Status</h5>
-
-                        <div class="row ml-0 mr-0 form-group">
-                            <div class="col-md-9 px-0">
-                                <span class="font-small text-secondary">Define progress status for your tickets</span>
-                            </div>
-
-                            <div class="col-md-3">
-                                <button id="add_status" class="btn w-100 btn-primary btn-sm">Add New Status</button>
-                            </div>
-                        </div>
-
-                        <div class="w-100 form-group bg-light pt-1 pb-3" id="status_form">
-                            <form action="{{ route('settings.addStatus') }}" method="post" class="w-100">
-                                @csrf
-
-                                <div class="row ml-0 mr-0 mt-2">
-                                    <div class="col-md-9">
-                                        <span class="text-secondary">Add New Ticket Status</span>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <button type="button" class="close float-right" id="status_close">
-                                            <span aria-hidden="true" class="font-small">Close</span>
-                                        </button>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="status_description" class="col-form-label text-md-right">{{ __('Status Description') }}  <sup class="text-danger">*</sup></label>
-                                        <input id="status_description" type="text" class="form-control @error('status_description') is-invalid @enderror form-control-sm" name="status_description" value="{{ old('status_description') }}" required autocomplete="off" autofocus>
-
-                                        @error('status_description')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label for="status_code" class="col-form-label text-md-right">{{ __('Status Code') }}  <sup class="text-danger">*</sup></label>
-                                        <input id="status_code" type="text" class="form-control @error('status_code') is-invalid @enderror form-control-sm" name="status_code" value="{{ old('status_code') }}" required autocomplete="off" autofocus>
-
-                                        @error('status_code')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-2 pt-3">
-                                        <button id="submit_status" type="submit" class="btn mt-3 w-100 btn-primary btn-sm">Add Status</button>
-                                    </div>
-                                </div>
-                            </form>  
-                        </div>
-
-                        <div class="w-100 mt-2">
-                            <table class="table w-100 table-striped table-sm table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 60%">Status Description</th>
-                                        <th style="width: 20%">Status Code</th>
-                                        <th style="width: 20%">Action</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    @foreach ($ticketStatus as $status)
-                                        <tr>
-                                            <td>{{ $status->description }}</td>
-                                            <td>{{ $status->status_code }}</td>
-
-                                            @if ($status->system_defined == 'Y')
-                                                <td>System Defined</td>
-                                            @else
-                                                <td>
-                                                    <span id="edit_status" class="fal fa-edit edit-status text-primary"></span>
-
-                                                    <span id="delete_status" class="fal fa-trash-alt delete-statu ml-3 text-danger"></span>
-                                                </td>
-                                            @endif
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
-
-
-
-                    </div>
-
-
-
                 </div>
 
                 <div class="tab-pane fade px-3 py-3" id="workflow" role="tabpanel" aria-labelledby="workflow">
@@ -313,8 +172,14 @@
                             @foreach ($ticketTypes as $type)
                                 <div class="col-md-3 mb-3">
                                     <div class="custom-control custom-checkbox mr-sm-2 form-group">
-                                        <input type="checkbox" class="custom-control-input" id="ticket_type_{{ $type->id }}">
-                                        <label class="custom-control-label" for="ticket_type_{{ $type->id }}">{{ $type->description }}</label>
+                                        <input type="checkbox" class="custom-control-input esclate_ticket" data-ticket="{{ $type->ticket_code }}" 
+                                            @foreach ($escalationTickets as $escaTick) 
+                                                @if ($type->ticket_code == $escaTick->ticket_code) 
+                                                    checked 
+                                                @endif
+                                            @endforeach 
+                                        id="ticket_type_{{ $type->id }}">
+                                        <label class="custom-control-label ticket-desc" for="ticket_type_{{ $type->id }}">{{ $type->description }}</label>
                                     </div>
                                 </div>
                             @endforeach
@@ -336,13 +201,13 @@
                     </div>
 
                     <div class="w-100">
-                        <table class="table w-100 table-striped table-sm table-borderless">
+                        <table id="escalation_datatable" class="table w-100 table-striped table-sm table-borderless">
                             <thead>
                                 <tr>
-                                    <td style="width: 30%">Name</td>
-                                    <td style="width: 30%">Email</td>
-                                    <td style="width: 20%">Designation</td>
-                                    <td style="width: 20%">Action</td>
+                                    <td>Name</td>
+                                    <td>Email</td>
+                                    <td>Designation</td>
+                                    <td>Action</td>
                                 </tr>
                             </thead>
                         </table>
@@ -354,6 +219,13 @@
 </div>
 
 @include('settings.modals.escalation')
+@include('settings.modals.add_regions')
+@include('settings.modals.add_ticket_type')
+@include('settings.modals.add_ticket_status')
+@include('settings.modals.edit_ticket_type')
+@include('settings.modals.edit_ticket_status')
+@include('settings.modals.edit_region')
+@include('settings.modals.edit_escalation')
 
 @endsection
 
@@ -369,12 +241,27 @@ $('#status_form').hide()
 $('#region_datatable').DataTable({
     processing: true,
     serverSide: true,
+    autoWidth: false,
     type: 'GET',
     ajax: "{{ route('settings.getRegion') }}",
     columns: [
-        { data: 'name', name: 'name' },
-        { data: 'region_short', name: 'region_short' },
+        { data: 'region_name', name: 'region_name' },
+        { data: 'region_code', name: 'region_code' },
         { data: 'completed', name: 'completed' },
+        { data: 'action', name: 'action' },
+    ]
+});
+
+$('#escalation_datatable').DataTable({
+    processing: true,
+    serverSide: true,
+    autoWidth: false,
+    type: 'GET',
+    ajax: "{{ route('settings.getEscalationTeam') }}",
+    columns: [
+        { data: 'name', name: 'name' },
+        { data: 'email', name: 'email' },
+        { data: 'designation', name: 'designation' },
         { data: 'action', name: 'action' },
     ]
 });
@@ -387,35 +274,96 @@ $(document).ready(function() {
     st_icon.remove('text-dark')
     st_icon.addClass('text-success')
 
-    $('#add_ticket_type').click(function() {
-        $('#type_form').show()
-        $(this).hide()
+    $('#type_table').on('click', 'tr td .edit-type', function() {
+        ticket_desc = $(this).closest('tr').find('td:eq(0)').text();
+        ticket_code = $(this).closest('tr').find('td:eq(1)').text();
+
+        $('#eticket_code').val(ticket_code)
+        $('#eticket_description').val(ticket_desc)
+
+        $('#edit_type_modal').modal({backdrop: 'static'});
+        $('#edit_type_modal').modal('show');
     })
 
-    $('#type_close').click(function() {
-        $('#type_form').hide()
-        $('#add_ticket_type').show()
+    $('#status_table').on('click', 'tr td .edit-status', function() {
+        status_desc = $(this).closest('tr').find('td:eq(0)').text();
+        status_code = $(this).closest('tr').find('td:eq(1)').text();
+
+        $('#estatus_code').val(status_code)
+        $('#estatus_description').val(status_desc)
+
+        $('#edit_status_modal').modal({backdrop: 'static'});
+        $('#edit_status_modal').modal('show');
     })
 
-    $('#add_region').click(function() {
-        $('#region_form').show()
-        $(this).hide()
+    $('#escalation_datatable').on('click', 'tr td .edit-escteam', function() {
+        name = $(this).closest('tr').find('td:eq(0)').text();
+        email = $(this).closest('tr').find('td:eq(1)').text();
+        designation = $(this).closest('tr').find('td:eq(2)').text();
+
+        $('#escalation_user').val(name)
+        $('#edit_email').val(email)
+        $('#edit_designation').val(designation)
+
+        $('#edit_escalation_modal').modal({backdrop: 'static'});
+        $('#edit_escalation_modal').modal('show');
     })
 
-    $('#region_close').click(function() {
-        $('#region_form').hide()
-        $('#add_region').show()
+    $('#region_datatable').on('click', 'tr td .edit-region', function() {
+        region_desc = $(this).closest('tr').find('td:eq(0)').text();
+        region_code = $(this).closest('tr').find('td:eq(1)').text();
+
+        $('#eregion_code').val(region_code)
+        $('#eregion_name').val(region_desc)
+
+        $('#edit_region_modal').modal({backdrop: 'static'});
+        $('#edit_region_modal').modal('show');
     })
 
-    $('#add_status').click(function() {
-        $('#status_form').show()
-        $(this).hide()
+    $('.esclate_ticket').click(function() {
+        ticket_code = $(this).attr('data-ticket')
+        ticket_desc = $(this).closest('div').find('.ticket-desc').text();
+
+        if ($(this).prop("checked") == true) {
+            addToEscalationType(ticket_code, ticket_desc)
+        } else {
+            removeFromEscalationType(ticket_code, ticket_desc)
+        }
     })
 
-    $('#status_close').click(function() {
-        $('#status_form').hide()
-        $('#add_status').show()
-    })
+    function addToEscalationType(ticket_code) {
+        $.ajax({
+            type: 'GET',
+            data: {'ticket_code': ticket_code},
+            url: "{{ route('settings.addToEscalationType') }}",
+            success:function(resp) {
+                console.log(resp)
+
+                if (resp == '200') {
+                    toastr.success(ticket_desc + ' added to esclation list', 'Success', {timeOut: 5000});
+                } else {
+                    toastr.error('Something went wrong. Ticket Type not added to escalation list', 'Error', {timeOut: 5000});
+                }
+            }
+        })
+    }
+
+    function removeFromEscalationType(ticket_code) {
+        $.ajax({
+            type: 'GET',
+            data: {'ticket_code': ticket_code},
+            url: "{{ route('settings.removeFromEscalationType') }}",
+            success:function(resp) {
+                console.log(resp)
+
+                if (resp == '200') {
+                    toastr.success(ticket_desc + ' removed from esclation list', 'Success', {timeOut: 5000});
+                } else {
+                    toastr.error('Something went wrong. Ticket Type not removed from escalation list', 'Error', {timeOut: 5000});
+                }
+            }
+        })
+    }
 })
 </script>
 @endpush

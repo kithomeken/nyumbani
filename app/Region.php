@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Region extends Model
 {
     protected $fillable = [
-        'name', 'region_short', 'created_by', 'completed', 'deleted'
+        'region_name', 'region_code', 'created_by', 'completed', 'deleted'
     ];
 }

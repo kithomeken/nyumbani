@@ -12,6 +12,6 @@ class TicketTypes extends Model
      * @var array
      */
     protected $fillable = [
-        'description', 'short_code', 'system_defined', 'created_by', 'deleted'
+        'description', 'ticket_code', 'system_defined', 'created_by', 'deleted'
     ];
 }

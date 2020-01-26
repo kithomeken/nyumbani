@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateRegionsTable extends Migration
+class CreateTicketStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateRegionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('regions', function (Blueprint $table) {
+        Schema::create('ticket_statuses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('region_name');
-            $table->string('region_code')->unique();
+            $table->string('description');
+            $table->string('status_code')->unique();
+            $table->string('system_defined')->default('N');
             $table->string('created_by');
-            $table->string('completed')->default('N');
             $table->string('deleted')->default('N');
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ class CreateRegionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('regions');
+        Schema::dropIfExists('ticket_statuses');
     }
 }

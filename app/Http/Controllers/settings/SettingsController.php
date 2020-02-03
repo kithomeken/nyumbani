@@ -70,8 +70,9 @@ class SettingsController extends Controller
 
     public function userManagement() {
         $descr = 'User Management';
+        $ticketTypes = TicketTypes::where('deleted', 'N')->get();
 
-        return view('settings.user_management', compact('descr'));
+        return view('settings.user_management', compact('descr', 'ticketTypes'));
     }
 
     public function addType(Request $request) {
@@ -84,7 +85,7 @@ class SettingsController extends Controller
         ]);
 
         if ($validate->fails()){
-            return redirect()->back()->withErrors($validate)->withInput();;
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         $user = Auth::user()->id;
@@ -322,5 +323,35 @@ class SettingsController extends Controller
         $delUser = EscalationTeam::where('email', $email)->delete();
 
         return redirect()->back()->with('success',  $name. ' has been delete from the escalation team');
+    }
+
+    public function getAllUsers() {
+        $users = User::all();
+
+        return datatables()->of($users)
+        ->addColumn('name', function ($users) {
+            if (empty($users->other_name)) {
+                $full_name = $users->first_name . ' ' . $users->last_name;
+            } else {
+                $full_name = $users->first_name . ' ' . $users->other_name .' '. $users->last_name;
+            }
+
+            return $full_name;
+        })
+        ->editColumn('designation', function ($users) {
+            if ($users->designation == 'DSP') {
+                return 'Dispatch';
+            } else if ($users->designation == 'TCH') {
+                return 'Technician';
+            } else {
+                return 'Excluded';
+            }
+        })
+        ->addColumn('action', function ($users) {
+            return '<button class="btn btn-sm py-0 edit-user">
+                <span id="edit_user" class="fal fa-edit text-primary"></span>
+            </button>';
+        })
+        ->make(true);
     }
 }

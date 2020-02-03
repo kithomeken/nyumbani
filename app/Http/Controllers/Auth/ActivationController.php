@@ -21,11 +21,14 @@ class ActivationController extends Controller
 
     public function createAccount(Request $request) {
         # Add user to Admin group (Checkbox)
-        $makeAdmin;
+        $makeAdmin = $request->admin_access;
+        $create_users = $request->create_user;
+        $add_regions = $request->add_region;
+        $add_to_esc = $request->esclate_to;
 
         $validate = Validator::make($request->all(), [
             'first_name' => ['required', 'string', 'max:255'],
-            'other_name' => ['string', 'max:255'],
+            // 'other_name' => ['string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'designation' => ['required', 'string', 'max:255'],
@@ -33,11 +36,17 @@ class ActivationController extends Controller
         ]);
 
         if ($validate->fails()){
-            return redirect()->back()->with('error', 'Failed to create Account');
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         # Random String for password
         $randomPwd = Str::random(15);
+
+        if ($makeAdmin == 'on') {
+            $access = 'admin';
+        } else {
+            $access = 'standard';
+        }
 
         # Create new user 
         $user = User::create([
@@ -48,6 +57,7 @@ class ActivationController extends Controller
             'designation' => $request['designation'],
             'msisdn' => $request['msisdn'],
             'password' => Hash::make($randomPwd),
+            'user_access' => $access
         ]);
 
         # Token for account activation and Expiry DateTime
@@ -68,7 +78,7 @@ class ActivationController extends Controller
 
         if ($activationMail) {
             # Notifiy user of account creation and mail send
-            return redirect()->back()->with('AccountCreation', 'Account created successfully');
+            return redirect()->back()->with('success', 'Account created successfully and activation link sent');
         } else {
             return $activationMail;
         }

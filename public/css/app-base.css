@@ -232,4 +232,13 @@ a{text-decoration: none!important;}
 table.dataTable.no-footer {
     border-bottom: 0px;
 }
-
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: #FFF;
+    background-color: #27ae60;
+    border-color: #27ae60 #27ae60#27ae60;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color:#27ae60;
+    background-color: #27ae60;
+}

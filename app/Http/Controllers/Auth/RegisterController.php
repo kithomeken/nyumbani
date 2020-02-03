@@ -93,9 +93,10 @@ class RegisterController extends Controller
         ]);
 
         # Complete Account Setup
-        User::where('email', $data['email'])->update([
+        $userVerified = User::where('email', $data['email'])->update([
             'password' => Hash::make($data['password']),
-            'email_verified_at' => Carbon::now()
+            'email_verified_at' => Carbon::now(),
+            'is_active' => 'Y'
         ]);
 
         $user = User::where('email', $data['email'])->first();

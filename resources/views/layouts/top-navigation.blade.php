@@ -136,7 +136,7 @@
                                 <span class="text-left text-white">{{ Auth::user()->email }}</span>
                             </div>
 
-                            <a class="dropdown-item py-2" href="">
+                            <a class="dropdown-item py-2" href="{{ route('settings.index') }}">
                                 {{ __('Settings & Account Details') }}
                             </a>
 

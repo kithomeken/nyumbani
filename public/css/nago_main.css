@@ -4127,7 +4127,7 @@ textarea {
 .card .card-scroll,
 .app-block .app-content .app-action .card-scroll,
 .chat-block .card-scroll {
-  height: 300px;
+  max-height: 300px;
   overflow: auto;
 }
 

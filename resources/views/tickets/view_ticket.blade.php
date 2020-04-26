@@ -182,49 +182,117 @@
             <div class="col-md-4 pr-0">
                 {{-- TICKET ATTRIBUTES --}}
                 <div class="w-100">
-                    <div class="card border-0 shadow-wd">
+                    <div class="card border-0 shadow-wd pb-4">
                         <div class="card-header background-white border-0">
                             <span class="font-normal">Properties</span>
                         </div>
 
-                        <div class="card-body pt-0">
+                        <div class="card-body pt-0 pb-0">
                             <div class="row mx-0">
                                 <div class="col-4 px-0 pb-1">
-                                    <span class="font-small text-secondary font-bold">Type</span>
+                                    <span class="text-secondary font-bold">Type</span>
                                 </div>
                                 <div class="col-8 px-0 pb-1">
-                                    <span class="font-small text-secondary">Change Request</span>
+                                    <span class="text-secondary">Change Request</span>
                                 </div>
                                 <div class="col-8 offset-4 pb-1 px-0">
-                                    <span class="font-small text-info fas fa-bookmark mr-2"></span>
-                                    <span class="font-small text-secondary">In Progress</span>
+                                    <span class="text-info fas fa-bookmark mr-2"></span>
+                                    <span class="text-secondary">In Progress</span>
                                 </div>
 
                                 <div class="col-8 offset-4 pb-1 px-0">
-                                    <span class="font-small text-info fas fa-globe-africa mr-1"></span>
-                                    <span class="font-small text-secondary">Kahawa Soweto Region</span>
+                                    <span class="text-success fas fa-square mr-1"></span>
+                                    <span class="text-secondary">Low Priority</span>
                                 </div>
 
+                                <div class="col-8 offset-4 pb-2 px-0">
+                                    <span class="text-info fas fa-globe-africa mr-1"></span>
+                                    <span class="text-secondary">Kahawa Soweto Region</span>
+                                </div>
+
+                                <div class="col-8 offset-4 pb-2 px-0">
+                                    <div class="d-flex align-items-center">
+                                        <div class="px-0 mr-3">
+                                            <span class="fal fa-check-circle fa-3x text-success"></span>
+                                        </div>
+        
+                                        <div class="flex-fill px-0">
+                                            <span class="text-success d-block">Within SLA</span>
+                                            <span class="text-success font-small d-block">12 Hours to SLA</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mx-0">
                                 <div class="col-4 pb-1 px-0">
-                                    <span class="font-small text-secondary font-bold">Assigned:</span>
+                                    <span class="text-secondary font-bold">Assigned:</span>
                                 </div>
                                 <div class="col-8 pb-1 px-0">
-                                    <span class="font-small text-secondary">Jetta Tiano</span>
+                                    <span class="text-secondary">Jetta Tiano</span>
                                 </div>
                                 <div class="col-8 offset-4 pb-1 px-0">
-                                    <span class="font-small text-secondary">0712345678</span>
+                                    <span class="text-secondary">0712345678</span>
                                 </div>
 
                                 <div class="col-4 px-0 pb-1">
-                                    <span class="font-small text-secondary font-bold">Created by:</span>
+                                    <span class="text-secondary font-bold">Created by:</span>
                                 </div>
                                 <div class="col-8 px-0 pb-1">
-                                    <span class="font-small text-secondary">Aucoin Tiano</span>
+                                    <span class="text-secondary">Aucoin Tiano</span>
                                 </div>
                                 <div class="col-8 px-0 offset-4 pb-1">
-                                    <span class="font-small text-secondary">0712345678</span>
+                                    <span class="text-secondary">0712345678</span>
                                 </div>
                             </div>
+
+                            <hr>
+                        </div>
+
+                        <div class="card-header pt-0 background-white border-0">
+                            <span class="font-normal">Task List</span>
+                        </div>
+
+                        <div class="card-body pt-0 pb-0">
+                            <div class="card-scroll px-1">
+                                <div class="custom-control custom-checkbox todo-item">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label d-flex justify-content-between"
+                                           for="customCheck1">Talk
+                                        to new customers
+                                    </label>
+                                </div>
+
+                                <div class="custom-control custom-checkbox todo-item">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck2" checked>
+                                    <label class="custom-control-label d-flex justify-content-between"
+                                           for="customCheck2">Older
+                                        users will be deleted from
+                                        the system
+                                    </label>
+                                </div>
+
+                                <div class="custom-control custom-checkbox todo-item">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                    <label class="custom-control-label d-flex justify-content-between"
+                                           for="customCheck3">Assignment
+                                        will be
+                                        completed
+                                    </label>
+                                </div>
+                            </div>
+
+                            <form class="mt-3">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control form-control-sm"
+                                           aria-label="Example text with button addon"
+                                           placeholder="Add New task" aria-describedby="button-addon1">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-sm btn-success" type="button" id="button-addon1">Add Task
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -298,3 +298,6 @@ table.dataTable.no-footer {
 .invisible-background{
     background: #F4F5F6!important;
 }
+.bg-info-bright {
+    background: rgba(51, 181, 229, 0.3) !important;
+}

@@ -37,5 +37,11 @@ Route::group(['prefix' => 'u/default/settings', 'middleware' => ['auth', 'verifi
 
         Route::get('/tickets/escalation/teams/get', 'settings\SettingsController@getEscalationTeam')->name('settings.getEscalationTeam');
 
-    Route::get('/user-management', 'settings\SettingsController@userManagement')->name('settings.users');
+    Route::group(['prefix' => '/user-management'], function(){
+        Route::get('/', 'settings\SettingsController@userManagement')->name('settings.users');
+
+        Route::get('/datatable/users/get', 'settings\SettingsController@getAllUsers')->name('settings.getAllUsers');
+    });
+        
+        
 });

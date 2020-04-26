@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white border-bottom fixed-top ml-60">
+<nav class="navbar navbar-expand-md navbar-light bg-white fixed-top shadow-sm">
     <div class="container-fluid">
-        <a class="navbar-brand pl-3 text-secondary mr-5" href="{{ url('/') }}">
+        <a class="navbar-brand pl-0 text-secondary mr-5" href="{{ url('/') }}">
             <small>{{ config('app.name') }} <sup><span class="fal fa-copyright mr-2"></span></sup></small>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -9,33 +9,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown nyumbani-search">
-                    <a id="nyumbani-search" class="nav-link dropdown-toggle" href="#" role="searchbox" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        <div class="align-items-center mr-2">
-                            <span class="fad fa-search"></span>
-                            <span class="ml-2 text-muted">Search Me</span>
-                        </div>
-                    </a>
 
-                    <div class="dropdown-menu dropdown-menu-right dropdown-search border-0 shadow-sm py-0" aria-labelledby="navbarDropdown">
-                        <div class="w-100 py-2 px-2 border-radius">
-                            <form action="" method="get">
-                                @csrf
-
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" name="nyumbani_search" class="form-control form-control-sm" placeholder="What are you looking for..." aria-label="" aria-describedby="basic-addon2">
-                                    <div class="input-group-append search-me" id="inputGroup-sizing-sm">
-                                      <button type="submit" id="search" class="btn btn-primary-sm input-group-text">
-                                          <span class="far fa-search"></span>
-                                      </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </li>
-            </ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -61,6 +35,40 @@
                             </a>
                         </li>
                     @endif
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle ml-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <div class="align-items-center mr-2">
+                                <span class="fal fa-search text-dark"></span>
+                            </div>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right py-0 dropdown-search" aria-labelledby="navbarDropdown">
+                            <div class="w-100 pt-2 pb-1 px-2 border-radius">
+                                <form action="" method="get">
+                                    @csrf
+    
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="nyumbani_search" class="form-control form-control-sm border-0 search-input" placeholder="Search..." aria-label="" aria-describedby="basic-addon2" required>
+
+                                        <div class="input-group-append search-me" id="inputGroup-sizing-sm">
+                                            <button type="submit" id="search" class="btn input-group-text">
+                                                <span class="far fa-search"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle ml-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <div class="align-items-center mr-2">
+                                <span class="fal fa-comment text-dark"></span>
+                            </div>
+                        </a>
+                    </li>
 
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle ml-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -118,11 +126,11 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle py-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <div class="d-flex align-items-center">
-                                <img src="{{ asset('img/avatars/'.Auth::user()->avatar.'.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
-                                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} <span class="caret"></span>
-                                <span class="far fa-chevron-down ml-2"></span>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle py-1" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <div class="d-flex align-items-center pt-1">
+                                <img src="{{ asset('img/avatars/'.Auth::user()->avatar.'.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="25px">
+                                <span>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                                <span class="far fa-chevron-down ml-2 fa-xs"></span>
                             </div>
                         </a>
 
@@ -136,7 +144,7 @@
                                 <span class="text-left text-white">{{ Auth::user()->email }}</span>
                             </div>
 
-                            <a class="dropdown-item py-2" href="">
+                            <a class="dropdown-item py-2" href="{{ route('settings.index') }}">
                                 {{ __('Settings & Account Details') }}
                             </a>
 

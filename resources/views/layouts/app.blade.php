@@ -40,6 +40,14 @@
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <script src="{{ asset('js/toastr.min.js') }}"></script>
 
+    <!-- Datatables -->
+    <link rel="stylesheet" href="{{ asset('dataTable/datatables.min.css') }}">
+    <script src="{{ asset('dataTable/datatables.min.js') }}"></script>
+
+    <!-- CKEditor -->
+    {{-- <script src="{{ asset('js/ckeditor.min.js') }}"></script> --}}
+    <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script>
+
     @stack('selective_scripts')
 
     <style>

@@ -4,6 +4,12 @@
     <title>{{ config('app.name') }} Account Settings</title>
 @endsection
 
+@push('pre_load')
+<script>
+    $("#settings_icon").addClass("active");
+</script>
+@endpush
+
 @section('module')
 <div class="card border-0">
     <div class="card-body">

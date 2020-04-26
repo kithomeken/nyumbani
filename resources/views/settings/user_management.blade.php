@@ -30,14 +30,14 @@
                     </div>
 
                     <div class="w-100 px-4">
-                        <table id="users_datatable" class="table w-100 table-hover table-striped">
+                        <table id="users_datatable" class="table table-hover table-border-0 w-100 font-small overdue-table">
                             <thead>
                                 <tr>
-                                    <td>Names</td>
-                                    <td>E-mail</td>
-                                    <td>Designation</td>
-                                    <td>Active</td>
-                                    <td>Action</td>
+                                    <th>Names</th>
+                                    <th>E-mail</th>
+                                    <th>Designation</th>
+                                    <th>Active</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                         </table>

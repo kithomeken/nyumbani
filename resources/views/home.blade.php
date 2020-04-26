@@ -1,23 +1,48 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>{{ config('app.name') }} Home</title>
+    <title>{{ config('app.name') }}: Dashboard</title>
 @endsection
+
+@push('selective_scripts')
+<!-- Datatables -->
+<link rel="stylesheet" href="{{ asset('dataTable/datatables.min.css') }}">
+<script src="{{ asset('dataTable/datatables.min.js') }}"></script>
+@endpush
+
+@push('pre_load')
+<script>
+    $("#home_icon").addClass("active");
+</script>
+@endpush
 
 @section('content')
 <div class="container-fluid">
-    <div class="w-100 pl-3 py-1">
+    <div class="w-100 pl-0 py-1">
         <div class="w-100 pb-3">
-            <h5 class="text-secondary">Dashboard</h4>
+            <h6 class="text-secondary">
+                <span class="fal fa-home mr-2"></span> Dashboard
+                <span class="font-small">
+                    <span class="fal fa-chevron-right mx-2"></span>
+                </span>
+            </h5>
         </div>
 
         <div class="row ml-0 mr-0 form-group">
             <div class="col-md-4 pl-0">
-                <h5 class="text-dark"><span class="fal fa-poll mr-2 text-success"></span> SLA Status</h5>
 
-                <div class="w-100">
-                    <div class="card border-0">
-                        <div class="card-body py-2">
+                {{-- SLA STATUS --}}
+                <div class="w-100 mb-4">
+                    <div class="card border-0 shadow-wd">
+                        <div class="card-header border-0 background-white">
+                            <div class="row mx-0">
+                                <div class="col-md-8 px-0">
+                                    <h6 class="text-success mb-0"><span class="fal fa-poll mr-1 text-success"></span> SLA Status</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body pb-2 pt-0">
                             <span class="text-dark">SLA Performance for the last 7 days</span>
 
                             <div class="d-flex py-2">
@@ -49,18 +74,41 @@
                     </div>
                 </div>
 
-                <h5 class="text-dark mt-4"><span class="fal fa-file-alt text-success mr-2"></span> My Notes</h5>
-
+                {{-- TO DO LIST --}}
                 <div class="w-100">
-                    <div class="card border-0" style="height: 430px">
+                    <div class="card border-0 shadow-wd" style="height: 430px">
+                        <div class="card-header border-0 background-white">
+                            <div class="row mx-0">
+                                <div class="col-md-8 px-0">
+                                    <h6 class="text-success"><span class="fal fa-list-alt text-success mr-1"></span> My Notes</h5>
+                                </div>
+
+                                <div class="col-4 px-0">
+                                    <a class="dropdown-toggle float-right" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <div class="align-items-center mr-2">
+                                            <span class="fal fa-ellipsis-h float-right fa-lg text-dark"></span>
+                                        </div>
+                                    </a>
+            
+                                    <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdown">
+                                        <div class="w-100 px-0 border-radius">
+                                            <a class="dropdown-item" href="#">Add New Note</a>
+                                            <a class="dropdown-item" href="#">View All Notes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-body py-0 px-0">
-                            <div class="w-100 p-2 pt-3">
-                                <ul class="list-style-none px-3 font-small" id="note-list">
-                                    <li class="note-item  mb-1">
+                            <div class="w-100 px-2 pb-2 pt-0">
+                                <ul class="list-style-none px-2 font-small" id="note-list">
+
+                                    <li class="note-item mb-2">
                                         <div class="w-100 note-content" data-note="1">
                                             <span class="">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
                                         </div>
-                                        <div class="w-100 d-flex py-1 text-right text-muted">
+
+                                        <div class="w-100 d-flex py-1 text-right text-muted border-bottom">
                                             <div class="flex-fill mr-2 w-75 note-action" id="note_action_1">
                                                 <a href="" class="mark_as_done">
                                                     <span class="fal fa-check-square text-success mr-3" data-toggle="tooltip" data-placement="left" title="Mark as done"></span>
@@ -71,16 +119,17 @@
                                                 </a>
                                             </div>
                                             <div class="flex-fill w-25 note-time">
-                                                1 minute ago
+                                                <span class="font-xsmall">1 minute ago</span>
                                             </div>
                                         </div>
                                     </li>
 
-                                    <li class="note-item  mb-1">
+                                    <li class="note-item mb-2">
                                         <div class="w-100 note-content" data-note="2">
                                             <span>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?</span>
                                         </div>
-                                        <div class="w-100 d-flex py-1 text-right text-muted">
+
+                                        <div class="w-100 d-flex py-1 text-right text-muted border-bottom">
                                             <div class="flex-fill mr-2 w-75 note-action" id="note_action_2">
                                                 <a href="" class="mark_as_done">
                                                     <span class="fal fa-check-square text-success mr-3" data-toggle="tooltip" data-placement="left" title="Mark as done"></span>
@@ -90,17 +139,18 @@
                                                     <span class="fal fa-trash-alt text-danger" data-toggle="tooltip" data-placement="right" title="Delete Note"></span>
                                                 </a>
                                             </div>
-                                            <div class="flex-fill w-25">
-                                                7 hours ago
+                                            <div class="flex-fill w-25 note-time">
+                                                <span class="font-xsmall">7 hours ago</span>
                                             </div>
                                         </div>
                                     </li>
 
-                                    <li class="note-item  mb-1">
+                                    <li class="note-item mb-2">
                                         <div class="w-100 note-content" data-note="3">
                                             <span>Sed ut perspiciatis unde omnis iste natus error sit.</span>
                                         </div>
-                                        <div class="w-100 d-flex py-1 text-right text-muted">
+
+                                        <div class="w-100 d-flex py-1 text-right text-muted border-bottom">
                                             <div class="flex-fill mr-2 w-75 note-action" id="note_action_3">
                                                 <a href="" class="mark_as_done">
                                                     <span class="fal fa-check-square text-success mr-3" data-toggle="tooltip" data-placement="left" title="Mark as done"></span>
@@ -110,96 +160,106 @@
                                                     <span class="fal fa-trash-alt text-danger" data-toggle="tooltip" data-placement="right" title="Delete Note"></span>
                                                 </a>
                                             </div>
-                                            <div class="flex-fill w-25">
-                                                2 weeks ago
+                                            <div class="flex-fill w-25 note-time">
+                                                <span class="font-xsmall">2 weekss ago</span>
                                             </div>
                                         </div>
                                     </li>
-                                </ul>
-                            </div>
 
-                            <div class="d-flex w-100 mb-0" style="bottom:0; position: absolute">
-                                {{-- <div class="flex-fill p-2 pl-4 text-left">
-                                    Saturday 4th Jan (Today)
-                                </div> --}}
-                                <div class="flex-fill p-2 pr-3 py-3">
-                                    <button id="add_note" class="btn btn-sm btn-outline-success float-right" role="button">
-                                        <span class="fal fa-plus fa-lg mr-1"></span> Add Note
-                                    </button>
-                                </div>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-
+            {{-- COLUMN TWO --}}
             <div class="col-md-8">
-                <h5 class="text-dark"><span class="fal fa-analytics text-success mr-2"></span> Current Statistics</h5>
 
-                <div class="w-100 big-disp py-3 rounded align-items-center" style="height:235px">
-                    <div class="row ml-0 mr-0">
-                        <div class="col-md-4 pr-0 align-items-center" style="display: flex">
-                            <table class="table table-borderless w-100 mb-1 text-white statistics">
-                                <tbody>
-                                    <tr class="border-bottom">
-                                        <td>
-                                            <div class="w-100 form-group">
-                                                <span class="text-white">In Progress</span>
-                                                <span class="font-large">23</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="w-100 form-group">
-                                                <span class="text-white">Scheduled</span>
-                                                <span class="font-large">14</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div class="w-100 form-group">
-                                                <span class="text-white">Awaiting Client</span>
-                                                <span class="font-large">7</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="w-100 form-group">
-                                                <span class="text-white">Overdue</span>
-                                                <span class="font-large">12</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="col-md-4 py-2">
-                            <img class="image-center" src="{{ asset('img/icons/pie-chart.png') }}" alt="" srcset="" width="80%">
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="w-100 border-bottom py-2">
-                                <span class="d-block text-white"><b>Description:</b></span>
+                {{-- STATISTICS CARD --}}
+                <div class="w-100 rounded align-items-center mb-4">
+                    <div class="card border-0 shadow-wd big-disp">
+                        <div class="card-header border-0">
+                            <div class="row mx-0">
+                                <div class="col-md-8 px-0">
+                                    <h6 class="text-white mb-0"><span class="fal fa-analytics text-white mr-1"></span> Current Statistics</h5>
+                                </div>
                             </div>
+                        </div>
 
-                            <div class="w-100 py-2 text-white">
-                                <span class="d-block">Description One</span>
-                                <span class="d-block">Description Two</span>
-                                <span class="d-block">Description Three</span>
-                                <span class="d-block">Description Four</span>
-                                <span class="d-block">Description Five</span>
+                        <div class="card-body px-0 py-1">
+                            <div class="row ml-0 mr-0">
+                                <div class="col-md-4 pr-0 align-items-center" style="display: flex">
+                                    <table class="table table-borderless w-100 mb-1 text-white statistics">
+                                        <tbody>
+                                            <tr class="border-bottom">
+                                                <td>
+                                                    <div class="w-100">
+                                                        <span class="text-white">In Progress</span>
+                                                        <span class="font-large">23</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w-100">
+                                                        <span class="text-white">Scheduled</span>
+                                                        <span class="font-large">14</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+        
+                                            <tr>
+                                                <td>
+                                                    <div class="w-100 form-group">
+                                                        <span class="text-white">Awaiting Client</span>
+                                                        <span class="font-large">7</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w-100 form-group">
+                                                        <span class="text-white">Overdue</span>
+                                                        <span class="font-large">12</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+        
+                                <div class="col-md-4 py-2">
+                                    <img class="image-center" src="{{ asset('img/icons/pie-chart.png') }}" alt="" srcset="" width="80%">
+                                </div>
+        
+                                <div class="col-md-4">
+                                    <div class="w-100 border-bottom py-2">
+                                        <span class="d-block text-white"><b>Description:</b></span>
+                                    </div>
+        
+                                    <div class="w-100 py-2 text-white">
+                                        <span class="d-block">Description One</span>
+                                        <span class="d-block">Description Two</span>
+                                        <span class="d-block">Description Three</span>
+                                        <span class="d-block">Description Four</span>
+                                        <span class="d-block">Description Five</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <h5 class="text-dark mt-4"><span class="fal fa-ticket-alt ticket-rotate text-success mr-2"></span> Tickets Due</h5>
 
-                <div class="w-100 py-1 rounded">
+                {{-- TICKETS DUE --}}
+                <div class="w-100 mt-4 rounded">
                     <div class="card border-0">
-                        <div class="card-body p-0">
+                        <div class="card-header border-0 invisible-background">
+                            <div class="row mx-0">
+                                <div class="col-md-8 px-0">
+                                    <h6 class="text-dark mb-0"><span class="fal fa-ticket-alt ticket-rotate text-dark mr-2"></span> Tickets Due</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-0 shadow-wd rounder-border">
                             <ul id="nav-tabs" class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
                                     <a href="#overdue-tickets" id="overdue-tab" class="nav-link active" data-toggle="tab" aria-selected="true">Overdue Tickets</a>
@@ -242,9 +302,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="w-100 py-2 px-3">
-                                        <table id="overdue-table" class="table table-hover table-border-0 font-small overdue-table w-100">
-                                            <thead class="th-theme">
+                                    <div class="w-100 py-2 px-3 table-responsive">
+                                        <table id="overdue-table" class="table table-hover table-border-0 w-100 font-small overdue-table">
+                                            <thead>
                                                 <tr>
                                                     <th>Agent</th>
                                                     <th>Type</th>
@@ -288,8 +348,8 @@
                                     </div>
 
                                     <div class="w-100 py-2 px-3">
-                                        <table id="today-table" class="table table-hover table-border-0 font-small overdue-table w-100">
-                                            <thead class="th-theme">
+                                        <table id="today-table" class="table table-hover table-border-0 w-100 font-small overdue-table">
+                                            <thead>
                                                 <tr>
                                                     <th>Agent</th>
                                                     <th>Type</th>
@@ -333,8 +393,8 @@
                                     </div>
 
                                     <div class="w-100 py-2 px-3">
-                                        <table id="tomorrow-table" class="table table-hover table-border-0 font-small overdue-table w-100">
-                                            <thead class="th-theme">
+                                        <table id="tomorrow-table" class="table table-hover table-border-0 w-100 font-small overdue-table">
+                                            <thead>
                                                 <tr>
                                                     <th>Agent</th>
                                                     <th>Type</th>

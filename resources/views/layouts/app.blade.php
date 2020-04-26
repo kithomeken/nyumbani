@@ -9,6 +9,10 @@
 
     @yield('title')
 
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600&display=swap" rel="stylesheet">
+
     <!-- Scripts -->
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
@@ -20,13 +24,8 @@
     <script src="{{asset('fontawesome_pro/js/all.js')}}"></script>
     <link href="{{ asset('fontawesome_pro/css/all.css') }}" rel="stylesheet">
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600&display=swap" rel="stylesheet">
-
-    <!-- Datatables -->
-    <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
-    <script src="{{ asset('js/datatables.min.js') }}"></script>
+    <!-- Nago Theme Styles -->
+    <link href="{{ asset('css/bundle.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -39,6 +38,8 @@
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <script src="{{ asset('js/toastr.min.js') }}"></script>
+
+    @stack('selective_scripts')
 
     <!-- CKEditor -->
     {{-- <script src="{{ asset('js/ckeditor.min.js') }}"></script> --}}
@@ -80,6 +81,7 @@
 
     @include('tickets.modals.new_ticket')
 
+    @stack('pre_load')
     @stack('script')
 
 <script>

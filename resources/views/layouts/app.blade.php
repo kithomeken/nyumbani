@@ -26,6 +26,7 @@
 
     <!-- Nago Theme Styles -->
     <link href="{{ asset('css/bundle.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/nago_main.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -40,10 +41,6 @@
     <script src="{{ asset('js/toastr.min.js') }}"></script>
 
     @stack('selective_scripts')
-
-    <!-- CKEditor -->
-    {{-- <script src="{{ asset('js/ckeditor.min.js') }}"></script> --}}
-    <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script>
 
     <style>
         .dropdown-toggle:after{

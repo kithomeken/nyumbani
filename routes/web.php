@@ -8,7 +8,7 @@
 
 require_once('mail_routes.php');
 require_once('settings_routes.php');
-
+require_once('tickets_routes.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ Route::group(['prefix' => 'u/default', 'middleware' => 'auth'], function(){
 
     Route::get('/dashboard', 'HomeController@index')->name('home');
 
-    Route::get('/tickets/create', 'TicketsController@createTicket')->name('ticket.create');  
+    Route::get('/tickets/create', 'TicketsController@createTicket')->name('ticket.create');
 });
 
 

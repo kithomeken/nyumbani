@@ -12,5 +12,9 @@ class TicketsController extends Controller
         return view ('tickets.new_ticket', compact('disable'));
     }
 
+    public function viewTicket($id){
+        // $ticket = Tickets::find($id);
 
+        return view('tickets.view_ticket', compact('ticket'));
+    }
 }

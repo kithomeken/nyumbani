@@ -46,7 +46,7 @@
 
     <!-- CKEditor -->
     {{-- <script src="{{ asset('js/ckeditor.min.js') }}"></script> --}}
-    <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script> 
 
     @stack('selective_scripts')
 

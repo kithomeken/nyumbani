@@ -73,9 +73,9 @@ a:hover, a:focus {
     transition: all 0.4s;
 }
 .crystal_clear{
-    background: #155799;
-    background: -webkit-linear-gradient(-105deg, #155799, #159957);
-    background: linear-gradient(-105deg, #155799, #159957);
+    background:  #D4EFDF;
+    background: -webkit-linear-gradient(-135deg, #A2D9CE, #D4EFDF);
+    background: linear-gradient(-135deg, #A2D9CE, #D4EFDF);
 }
 .cover-image{
     background-repeat: no-repeat; 

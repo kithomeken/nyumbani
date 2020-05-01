@@ -18,11 +18,16 @@ class CreateTicketsTable extends Migration
             $table->string('summary');
             $table->string('type');
             $table->string('status');
-            $table->integer('user_id');
+            $table->string('sla_status');
             $table->string('priority');
-            $table->text('content');
-            $table->string('assignee');
+            $table->string('region_id');
+            $table->string('created_by');
+            $table->string('assigned_to')->nullable();
+            $table->string('serial_no')->nullable();
             $table->date('scheduled_to')->nullable();
+            $table->string('delete_by')->nullable();
+            $table->date('delete_at')->nullable();
+            $table->text('content');
             $table->timestamps();
         });
     }

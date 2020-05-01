@@ -108,6 +108,9 @@ a{text-decoration: none!important;}
 .font-large{
     font-size: large
 }
+.font-xlarge{
+    font-size: x-large
+}
 .font-bold{
     font-weight: 600;
 }
@@ -300,4 +303,17 @@ table.dataTable.no-footer {
 }
 .bg-info-bright {
     background: rgba(51, 181, 229, 0.3) !important;
+}
+.cover-image{
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: cover; 
+}
+.right-cover-image{
+    background-repeat: no-repeat; 
+    background-position: right; 
+    background-size: cover; 
+}
+.network-art{
+    background-image: url('../img/screen-art/7F9E6CD4BD9CFB42BE3E242691490A71.png');
 }

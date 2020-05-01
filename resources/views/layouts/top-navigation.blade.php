@@ -26,7 +26,7 @@
                 @else
                     @if (empty($disable))
                         <li class="nav-item dropdown border-right">
-                            <a id="create_ticket" class="nav-link dropdown-toggle mr-1 py-1" href="{{ route('ticket.create') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="create_ticket" class="nav-link dropdown-toggle mr-1 py-1" href="{{ route('ticket.createTicketView') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <div class="align-items-center mr-2">
                                     <button type="button" class="btn btn-outline-success btn-sm">
                                         <span class="fal fa-plus mr-1"></span> Create Ticket

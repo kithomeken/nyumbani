@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Ticket - INC0009846 North Bafels Estate</title>
+    <title>Ticket #{{ $ticket->id }} - {{ $ticket->summary }}</title>
 @endsection
 
 @push('selective_scripts')
@@ -25,7 +25,7 @@
                 <span class="font-small">
                     <span class="fal fa-chevron-right mx-2"></span>
                 </span>
-                INC0009846 North Bafels Estate
+                {{ $ticket->summary }}
             </h5>
         </div>
 
@@ -37,11 +37,11 @@
                         <div class="row mx-0">
                             <div class="col-md-8 px-0">
                                 <div class="d-flex align-items-center pt-1">
-                                    <img src="{{ asset('img/avatars/'.Auth::user()->avatar.'.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
+                                    <img src="{{ asset('img/avatars/'.$creator->avatar.'.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
         
                                     <div class="ml-2">
-                                        <span class="font-bold d-block">INC0009846 North Bafels Estate</span>
-                                        <span class="badge bg-info-bright text-info">In Progress</span>
+                                        <span class="font-bold d-block">{{ $ticket->summary }}</span>
+                                        <span class="badge bg-info-bright text-info">{{ $status->description }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -52,25 +52,30 @@
                         {{-- TICKET DETAILS --}}
                         <div class="w-100">
                             <div class="text-secondary form-group">
-                                <span class="d-block mb-2">
+                                {!! $ticket->content !!}
+                                {{-- <span class="d-block mb-2">
                                     Cum debitis doloremque dolorum eligendi facilis ipsa nam nemo possimus recusandae vel. Animi corporis dolorum eveniet minus odio porro sed unde vero!
                                 </span>
                                 
                                 <span class="d-block">
                                     Accusantium adipisci, dignissimos dolorum et, hic illum impedit iure, libero pariatur porro quae quaerat! Aperiam commodi incidunt libero modi quam quas, recusandae reprehenderit. Ab, ad aliquid id nam quas quo sed! Blanditiis!
-                                </span>
+                                </span> --}}
                             </div>
 
-                            <div class="w-100 mini-attr-slot font-small text-muted">
+                            <div class="w-100 mini-attr-slot font-small text-secondary">
                                 <div class="d-flex align-items-center">
-                                    <span class="fal fa-calendar-alt mr-2"></span>
-                                    <span class="mr-2">Created: </span>
-                                    <span class="m-0">4 weeks ago</span>
+                                    {{-- <span class="fal fa-clock mr-2"></span> --}}
+                                    <span class="m-0">{{ $ticket->created_at->diffForhumans() }}</span>
+                                </div>
+
+                                <div class="d-flex align-items-center">
+                                    {{-- <span class="fal fa-user mr-2"></span> --}}
+                                    <span class="m-0">{{ $creator->first_name }} {{ $creator->last_name }}s</span>
                                 </div>
                             </div>
                         </div>
 
-                        <hr>
+                        <hr class="mb-3 mt-2">
 
                         <div class="w-100">
                             <div class="pt-0 pb-2">
@@ -193,21 +198,27 @@
                                     <span class="text-secondary font-bold">Type</span>
                                 </div>
                                 <div class="col-8 px-0 pb-1">
-                                    <span class="text-secondary">Change Request</span>
+                                    <span class="text-secondary">{{ $ticketType->description }}</span>
                                 </div>
                                 <div class="col-8 offset-4 pb-1 px-0">
                                     <span class="text-info fas fa-bookmark mr-2"></span>
-                                    <span class="text-secondary">In Progress</span>
+                                    <span class="text-secondary">{{ $status->description }}</span>
                                 </div>
 
                                 <div class="col-8 offset-4 pb-1 px-0">
                                     <span class="text-success fas fa-square mr-1"></span>
-                                    <span class="text-secondary">Low Priority</span>
+                                    @if ($ticket->priority == 1)
+                                        <span class="text-secondary">Low Priority</span>
+                                    @elseif ($ticket->priority == 2)
+                                        <span class="text-secondary">Medium Priority</span>
+                                    @else 
+                                        <span class="text-secondary">High Priority</span>
+                                    @endif
                                 </div>
 
                                 <div class="col-8 offset-4 pb-2 px-0">
                                     <span class="text-info fas fa-globe-africa mr-1"></span>
-                                    <span class="text-secondary">Kahawa Soweto Region</span>
+                                    <span class="text-secondary">{{ $region->region_name }} Region</span>
                                 </div>
 
                                 <div class="col-8 offset-4 pb-2 px-0">
@@ -217,7 +228,7 @@
                                         </div>
         
                                         <div class="flex-fill px-0">
-                                            <span class="text-success d-block">Within SLA</span>
+                                            <span class="text-success d-block">{{ $slaStatus->status_description }}</span>
                                             <span class="text-success font-small d-block">12 Hours to SLA</span>
                                         </div>
                                     </div>
@@ -229,20 +240,20 @@
                                     <span class="text-secondary font-bold">Assigned:</span>
                                 </div>
                                 <div class="col-8 pb-1 px-0">
-                                    <span class="text-secondary">Jetta Tiano</span>
+                                    <span class="text-secondary">{{ $assigned_to->first_name }} {{ $assigned_to->last_name }}</span>
                                 </div>
                                 <div class="col-8 offset-4 pb-1 px-0">
-                                    <span class="text-secondary">0712345678</span>
+                                    <span class="text-secondary">{{ $assigned_to->msisdn }}</span>
                                 </div>
 
                                 <div class="col-4 px-0 pb-1">
                                     <span class="text-secondary font-bold">Created by:</span>
                                 </div>
                                 <div class="col-8 px-0 pb-1">
-                                    <span class="text-secondary">Aucoin Tiano</span>
+                                    <span class="text-secondary">{{ $creator->first_name }} {{ $creator->last_name }}</span>
                                 </div>
                                 <div class="col-8 px-0 offset-4 pb-1">
-                                    <span class="text-secondary">0712345678</span>
+                                    <span class="text-secondary">{{ $creator->msisdn }}</span>
                                 </div>
                             </div>
 

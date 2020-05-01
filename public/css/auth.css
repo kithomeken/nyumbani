@@ -87,8 +87,13 @@ a:hover, a:focus {
     background-position: right; 
     background-size: cover; 
 }
+.contain-image{
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: contain; 
+}
 .login-art{
-    background-image: url('../img/icons/07e7308674ac324d242c199e6314e95d.png');
+    background-image: url('../img/screen-art/login_screen.png');
 }
 .error-401{
     background-image: url('../img/error/401.jpg');

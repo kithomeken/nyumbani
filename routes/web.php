@@ -30,8 +30,6 @@ Route::get('/home', function(){
 Route::group(['prefix' => 'u/default', 'middleware' => 'auth'], function(){
 
     Route::get('/dashboard', 'HomeController@index')->name('home');
-
-    Route::get('/tickets/create', 'TicketsController@createTicket')->name('ticket.create');
 });
 
 

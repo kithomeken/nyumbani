@@ -19,6 +19,7 @@ class CreateActivitiesTable extends Migration
             $table->string('action_type');
             $table->string('action_by');
             $table->text('description');
+            $table->string('file_name')->nullable();
             $table->timestamps();
         });
     }

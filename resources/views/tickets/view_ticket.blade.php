@@ -239,11 +239,9 @@
                                 <div class="col-4 pb-1 px-0">
                                     <span class="text-secondary font-bold">Assigned:</span>
                                 </div>
-                                <div class="col-8 pb-1 px-0">
+                                <div class="col-8 pb-2 px-0">
                                     <span class="text-secondary">{{ $assigned_to->first_name }} {{ $assigned_to->last_name }}</span>
-                                </div>
-                                <div class="col-8 offset-4 pb-1 px-0">
-                                    <span class="text-secondary">{{ $assigned_to->msisdn }}</span>
+                                    <span class="fad fa-question-square ml-2" data-toggle="tooltip" data-placement="bottom" title="Phone No: {{$assigned_to->msisdn }}"></span>
                                 </div>
 
                                 <div class="col-4 px-0 pb-1">
@@ -251,9 +249,10 @@
                                 </div>
                                 <div class="col-8 px-0 pb-1">
                                     <span class="text-secondary">{{ $creator->first_name }} {{ $creator->last_name }}</span>
+                                    <span class="fad fa-question-square ml-2" data-toggle="tooltip" data-placement="bottom" title="Phone No: {{ $creator->msisdn }}"></span>
                                 </div>
                                 <div class="col-8 px-0 offset-4 pb-1">
-                                    <span class="text-secondary">{{ $creator->msisdn }}</span>
+                                    
                                 </div>
                             </div>
 

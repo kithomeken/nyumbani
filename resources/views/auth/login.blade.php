@@ -71,7 +71,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <button type="submit" id="butn" class="btn px-3 w-100 btn-primary shadow">
+                                    <button type="submit" id="butn" class="btn px-3 w-100 btn-success shadow">
                                         {{ __('Sign In') }}
                                     </button>
                                 </div>

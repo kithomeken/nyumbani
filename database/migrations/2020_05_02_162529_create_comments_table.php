@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration
             $table->string('ticket_id');
             $table->string('user_id');
             $table->string('comment');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

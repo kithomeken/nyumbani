@@ -4,6 +4,8 @@ namespace App\Http\Controllers\tickets;
 
 use Auth;
 use App\Region;
+use App\Comments;
+use App\Activity;
 use App\Tickets;
 use App\TicketStatus;
 use App\TicketTypes;
@@ -55,7 +57,15 @@ class TicketsController extends Controller
             'sla_status'    => $slaStatus,
         ]);
 
-        if ($anotherOne == 'CreateAnother') {
+        # Create Activity Log
+        Activity::create([
+            'ticket_id' => $create->id,
+            'action_by' => $creator,
+            'action_type' => 'Create',
+            'description' => Auth::user()->first_name ." " . Auth::user()->last_name . " created ticket.",
+        ]);
+
+        if ($anotherOne == 'Y') {
             return redirect()->back()->with('another', 'Raise another ticket');
         }
 
@@ -73,6 +83,14 @@ class TicketsController extends Controller
         $region = Region::where('region_code', $ticket->region_id)->first();
         $slaStatus = SLAStatus::where('status_code', $ticket->sla_status)->first();
 
+        $activities = Activity::where('ticket_id', $id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        $comments = Comments::where('ticket_id', $id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
         return view('tickets.view_ticket', [
             'ticket' => $ticket,
             'status' => $status,
@@ -81,6 +99,8 @@ class TicketsController extends Controller
             'ticketType' => $ticketType,
             'region' => $region,
             'slaStatus' => $slaStatus,
+            'activities' => $activities,
+            'comments' => $comments,
         ]);
     }
 }

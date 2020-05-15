@@ -17,6 +17,12 @@
 @endpush
 
 @section('content')
+<style>
+    #cke_1_contents {
+        height: 120px!important
+    }
+</style>
+
 <div class="container-fluid">
     <div class="w-100 py-1">
         <div class="w-100 pb-3">
@@ -40,7 +46,7 @@
                                     <img src="{{ asset('img/avatars/'.$creator->avatar.'.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
         
                                     <div class="ml-2">
-                                        <span class="font-bold d-block">{{ $ticket->summary }}</span>
+                                        <span class="font-bold d-block font-large">{{ $ticket->summary }}</span>
                                         <span class="badge bg-info-bright text-info">{{ $status->description }}</span>
                                     </div>
                                 </div>
@@ -53,13 +59,6 @@
                         <div class="w-100">
                             <div class="text-secondary form-group">
                                 {!! $ticket->content !!}
-                                {{-- <span class="d-block mb-2">
-                                    Cum debitis doloremque dolorum eligendi facilis ipsa nam nemo possimus recusandae vel. Animi corporis dolorum eveniet minus odio porro sed unde vero!
-                                </span>
-                                
-                                <span class="d-block">
-                                    Accusantium adipisci, dignissimos dolorum et, hic illum impedit iure, libero pariatur porro quae quaerat! Aperiam commodi incidunt libero modi quam quas, recusandae reprehenderit. Ab, ad aliquid id nam quas quo sed! Blanditiis!
-                                </span> --}}
                             </div>
 
                             <div class="w-100 mini-attr-slot font-small text-secondary">
@@ -83,60 +82,47 @@
                             </div>
 
                             <div class="pb-1">
-                                <div class="w-100 mb-2">
-                                    <div class="d-flex">
-                                        <div class="px-0">
-                                            <img src="{{ asset('img/avatars/'.Auth::user()->avatar.'.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
-                                        </div>
+                                @if ($comments->count() == 0)
+                                    <div class="w-100 mb-2" style="height: 170px">
+                                        <img class="image-center" src="{{ asset('img/screen-art/no_results_found.png') }}" alt="" srcset="" width="auto" height="170px">
+                                    </div>
 
-                                        <div class="px-2 flex-fill">
-                                            <span class="text-dark d-block">Ardelia Yeomans </span>
-                                            <span class="text-secondary d-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, neque?</span>
-                                            <span class="float-right d-block font-small pr-3 text-muted">2 days ago</span>
+                                    <div class="w-100 pt-2">
+                                        <p class="text-dark text-center font-large">
+                                            No Comments Found
+                                        </p>
+                                    </div>
+                                @else
+                                    @foreach ($comments as $comment)
+                                        <div class="w-100 mb-2">
+                                            <div class="d-flex">
+                                                <div class="px-0">
+                                                    <img src="{{ asset('img/avatars/'.$comment->user()->avatar.'.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
+                                                </div>
+
+                                                <div class="px-2 flex-fill">
+                                                    <span class="text-dark d-block">{{ $comment->user()->first_name }} {{ $comment->user()->last_name }}</span>
+                                                    <span class="text-secondary d-block">{!! $comment->comment !!}</span>
+                                                    <span class="float-right d-block font-small pr-3 text-muted">{{ $comment->created_at->diffForhumans() }}</span>
+                                                </div>
+                                            </div>
                                         </div>
+                                    @endforeach
+                                @endif
+                            </div>
+
+                            <form action="" method="post" class="px-2">
+                                <div class="w-100 pt-2 form-group">
+                                    <div class="mb-2">
+                                        <label for="add_comment" class="col-form-label text-md-left">Add Comment <sup class="text-danger">*</sup></label>
+                                        <textarea class="form-control form-control-sm" id="comment" rows="2" name="comment" value=""></textarea>
                                     </div>
                                 </div>
+                            </form>
 
-                                <div class="w-100 mb-2">
-                                    <div class="d-flex">
-                                        <div class="px-0">
-                                            <img src="{{ asset('img/avatars/6ADFAB691F9EB5CB14D62FFC795BC36A.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
-                                        </div>
-
-                                        <div class="px-2 flex-fill">
-                                            <span class="text-dark d-block">Lisetta Muehler </span>
-                                            <span class="text-secondary d-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet corporis cum eaque libero nostrum unde!</span>
-                                            <span class="float-right d-block font-small pr-3 text-muted">4 weeks ago</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="w-100 mb-2">
-                                    <div class="d-flex">
-                                        <div class="px-0">
-                                            <img src="{{ asset('img/avatars/0687D6585F8D9BDFF6767D0529FC8095.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
-                                        </div>
-
-                                        <div class="px-2 flex-fill">
-                                            <span class="text-dark d-block">Gifford Rosenwald </span>
-                                            <span class="text-secondary d-block">Lorem ipsum dolor sit amet.</span>
-                                            <span class="float-right d-block font-small pr-3 text-muted">10 months ago</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="w-100 mb-2">
-                                    <div class="d-flex">
-                                        <div class="px-0">
-                                            <img src="{{ asset('img/avatars/A073A8CC99D63B38D352BFFCA4505D14.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
-                                        </div>
-
-                                        <div class="px-2 flex-fill">
-                                            <span class="text-dark d-block">Brynne Mettricke</span>
-                                            <span class="text-secondary d-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, temporibus!</span>
-                                            <span class="float-right d-block font-small pr-3 text-muted">1 year ago</span>
-                                        </div>
-                                    </div>
+                            <div class="w-100 pt-2 px-2">
+                                <div class="mb-2 col-3 px-0">
+                                    <button type="submit" id="post_comment" class="btn btn-success btn-sm w-100">Post Comment</button>
                                 </div>
                             </div>
                         </div>
@@ -155,9 +141,9 @@
 
                     <div class="card-body pt-0">
                         <div class="w-100">
-                            <div class="d-flex">
+                            <div class="d-flex form-group">
                                 <div class="px-0">
-                                    <figure class="avatar avatar-sm mr-3 bring-forward">
+                                    <figure class="avatar avatar-sm bring-forward mr-2">
                                         <span class="avatar-title bg-info-bright text-info rounded-circle">
                                             <i class="fal fa-file-alt"></i>
                                         </span>
@@ -177,16 +163,39 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @foreach ($activities as $activity)
+                                @if ($activity->action_type == "Create")
+                                    <div class="d-flex form-group">
+                                        <div class="px-0">
+                                            <figure class="avatar avatar-sm bring-forward mr-2">
+                                                <span class="avatar-title bg-info-bright text-info rounded-circle">
+                                                    <i class="fal fa-check"></i>
+                                                </span>
+                                            </figure>
+                                        </div>
+
+                                        <div class="px-2 flex-fill">
+                                            <span class="text-dark d-block mb-2">
+                                                <span class="text-info">{{ $activity->actionBy->first_name }} {{ $activity->actionBy->last_name }}</span>
+                                                <span class="text-dark"> created ticket</span>
+                                                <span class="float-right text-muted font-small">{{ $activity->created_at->diffForhumans() }}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                @else
+                                    
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
 
-
             {{-- UTILITY ITEMS --}}
             <div class="col-md-4 pr-0">
                 {{-- TICKET ATTRIBUTES --}}
-                <div class="w-100">
+                <div class="w-100 pb-4">
                     <div class="card border-0 shadow-wd pb-4">
                         <div class="card-header background-white border-0">
                             <span class="font-normal">Properties</span>
@@ -239,11 +248,9 @@
                                 <div class="col-4 pb-1 px-0">
                                     <span class="text-secondary font-bold">Assigned:</span>
                                 </div>
-                                <div class="col-8 pb-1 px-0">
+                                <div class="col-8 pb-2 px-0">
                                     <span class="text-secondary">{{ $assigned_to->first_name }} {{ $assigned_to->last_name }}</span>
-                                </div>
-                                <div class="col-8 offset-4 pb-1 px-0">
-                                    <span class="text-secondary">{{ $assigned_to->msisdn }}</span>
+                                    <span class="fad fa-question-square ml-2" data-toggle="tooltip" data-placement="bottom" title="Phone No: {{$assigned_to->msisdn }}"></span>
                                 </div>
 
                                 <div class="col-4 px-0 pb-1">
@@ -251,9 +258,10 @@
                                 </div>
                                 <div class="col-8 px-0 pb-1">
                                     <span class="text-secondary">{{ $creator->first_name }} {{ $creator->last_name }}</span>
+                                    <span class="fad fa-question-square ml-2" data-toggle="tooltip" data-placement="bottom" title="Phone No: {{ $creator->msisdn }}"></span>
                                 </div>
                                 <div class="col-8 px-0 offset-4 pb-1">
-                                    <span class="text-secondary">{{ $creator->msisdn }}</span>
+                                    
                                 </div>
                             </div>
 
@@ -307,10 +315,167 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="w-100">
+                    <div class="card border-0 shadow-wd pb-4">
+                        <div class="card-header background-white border-0">
+                            <span class="font-normal">Attachments</span>
+                        </div>
+
+                        <div class="card-body pt-0 pb-0 px-3">
+                            <div class="card-scroll px-0">
+                                <div class="w-100 border-bottom form-group">
+                                    <div class="d-flex px-0">
+                                        <div class="px-0">
+                                            <figure class="avatar avatar-sm bring-forward mr-2 px-0">
+                                                <span class="avatar-title bg-info-bright text-info rounded">
+                                                    <i class="fal fa-file-alt"></i>
+                                                </span>
+                                            </figure>
+                                        </div>
+
+                                        <div class="px-2 flex-fill py-0">
+                                            <span class="text-dark d-block mb-2">
+                                                <span class="text-dark d-block">Mockup.zip</span>
+                                                <span class="text-secondary d-block font-small">4.3 MB</span>
+                                            </span>
+                                        </div>
+
+                                        <div class="px-0 pr-2">
+                                            <span class="d-block mb-2">
+                                                <span class="fal text-secondary fa-arrow-to-bottom mr-2"></span>
+                                                <span class="fal text-danger fa-trash-alt"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w-100 border-bottom form-group">
+                                    <div class="d-flex px-0">
+                                        <div class="px-0">
+                                            <figure class="avatar avatar-sm bring-forward mr-2 px-0">
+                                                <span class="avatar-title bg-info-bright text-info rounded">
+                                                    <i class="fal fa-file-word"></i>
+                                                </span>
+                                            </figure>
+                                        </div>
+
+                                        <div class="px-2 flex-fill py-0">
+                                            <span class="text-dark d-block mb-2">
+                                                <span class="text-dark d-block">to_do_list.docx</span>
+                                                <span class="text-secondary d-block font-small">1.1 MB</span>
+                                            </span>
+                                        </div>
+
+                                        <div class="px-0 pr-2">
+                                            <span class="d-block mb-2">
+                                                <span class="fal text-secondary fa-arrow-to-bottom mr-2"></span>
+                                                <span class="fal text-danger fa-trash-alt"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w-100 border-bottom form-group">
+                                    <div class="d-flex px-0">
+                                        <div class="px-0">
+                                            <figure class="avatar avatar-sm bring-forward mr-2 px-0">
+                                                <span class="avatar-title bg-info-bright text-info rounded">
+                                                    <i class="fal fa-file-pdf"></i>
+                                                </span>
+                                            </figure>
+                                        </div>
+
+                                        <div class="px-2 flex-fill py-0">
+                                            <span class="text-dark d-block mb-2">
+                                                <span class="text-dark d-block">project_list.pdf</span>
+                                                <span class="text-secondary d-block font-small">9 MB</span>
+                                            </span>
+                                        </div>
+
+                                        <div class="px-0 pr-2">
+                                            <span class="d-block mb-2">
+                                                <span class="fal text-secondary fa-arrow-to-bottom mr-2"></span>
+                                                <span class="fal text-danger fa-trash-alt"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w-100 border-bottom form-group">
+                                    <div class="d-flex px-0">
+                                        <div class="px-0">
+                                            <figure class="avatar avatar-sm bring-forward mr-2 px-0">
+                                                <span class="avatar-title bg-info-bright text-info rounded">
+                                                    <i class="fal fa-file-image"></i>
+                                                </span>
+                                            </figure>
+                                        </div>
+
+                                        <div class="px-2 flex-fill py-0">
+                                            <span class="text-dark d-block mb-2">
+                                                <span class="text-dark d-block">serial_no.png</span>
+                                                <span class="text-secondary d-block font-small">0.8 MB</span>
+                                            </span>
+                                        </div>
+
+                                        <div class="px-0 pr-2">
+                                            <span class="d-block mb-2">
+                                                <span class="fal text-secondary fa-arrow-to-bottom mr-2"></span>
+                                                <span class="fal text-danger fa-trash-alt"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-100 pt-2">
+                                <div class="row mx-0">
+                                    <div class="offset-md-7 col-md-5 px-0">
+                                        <button type="submit" id="create_btn" class="btn btn-primary btn-sm w-100">Upload File</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-
     </div>
 </div>
 @endsection
+
+@push('script')
+<script>
+CKEDITOR.replace( 'comment', {
+    uiColor: '#ABBEB9'
+});
+
+CKEDITOR.config.toolbar = [
+    [
+        'Bold','Italic', 'Paste',
+    ],
+];
+
+$(document).ready(function() {
+    toastr.options = {
+        timeOut: 30000,
+        progressBar: true,
+        showMethod: "slideDown",
+        hideMethod: "slideUp",
+        showDuration: 200,
+        hideDuration: 200
+    };
+
+    $('#post_comment').click(function() {
+        comment = $('#comment').val()
+
+        if (comment == '' || comment == ' ') {
+            toastr.error("Cannot post an empty comment", 'Success!', {timeOut: 5000})
+        } else {
+
+        }
+    })
+})
+</script>
+@endpush

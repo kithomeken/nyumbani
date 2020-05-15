@@ -510,6 +510,8 @@ class ComposerStaticInitdf943a46879f18cf872a0f93b6112dee
 
     public static $classMap = array (
         'App\\Activation' => __DIR__ . '/../..' . '/app/Activation.php',
+        'App\\Activity' => __DIR__ . '/../..' . '/app/Activity.php',
+        'App\\Comments' => __DIR__ . '/../..' . '/app/Comments.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\EscalationTeam' => __DIR__ . '/../..' . '/app/EscalationTeam.php',
         'App\\EscalationType' => __DIR__ . '/../..' . '/app/EscalationType.php',
@@ -540,7 +542,7 @@ class ComposerStaticInitdf943a46879f18cf872a0f93b6112dee
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Region' => __DIR__ . '/../..' . '/app/Region.php',
-        'App\\SLAStatus' => __DIR__ . '/../..' . '/app/SLAStatus.php',
+        'App\\SlaStatus' => __DIR__ . '/../..' . '/app/SlaStatus.php',
         'App\\TicketStatus' => __DIR__ . '/../..' . '/app/TicketStatus.php',
         'App\\TicketTypes' => __DIR__ . '/../..' . '/app/TicketTypes.php',
         'App\\Tickets' => __DIR__ . '/../..' . '/app/Tickets.php',

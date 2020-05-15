@@ -26,7 +26,7 @@
 
     <!-- Nago Theme Styles -->
     <link href="{{ asset('css/bundle.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/nago_main.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/nago_main.css') }}" rel="stylesheet"> --}}
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -54,6 +54,7 @@
         .dropdown-toggle:after{
             content: none
         }
+
         .chosen-container {
             position: relative;
             display: inline-block;
@@ -84,7 +85,7 @@
         </div>
     </div>
 
-    @include('tickets.modals.new_ticket')
+    {{-- @include('tickets.modals.new_ticket') --}}
 
     @stack('pre_load')
     @stack('script')

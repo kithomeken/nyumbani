@@ -96,7 +96,7 @@
             
                             <div class="col-auto mt-3">
                                 <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="another_ticket">
+                                    <input type="checkbox" class="custom-control-input" name="create-another" id="another_ticket" value="Y">
                                     <label class="custom-control-label" for="another_ticket">Create Another</label>
                                 </div>
                             </div>
@@ -112,8 +112,6 @@
                         </form>
                     </div>
                 </div>
-
-
             </div>
 
             <div class="col-5 px-0">
@@ -123,3 +121,17 @@
     </div>
 </div>
 @endsection
+
+@push('script')
+<script>
+    CKEDITOR.replace( 'description', {
+        uiColor: '#75D19C'
+    });
+
+    CKEDITOR.config.toolbar = [
+        [
+            'Bold','Italic', 'Paste',
+        ],
+    ];
+</script>
+@endpush

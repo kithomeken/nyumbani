@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Activation' => $baseDir . '/app/Activation.php',
+    'App\\Activity' => $baseDir . '/app/Activity.php',
+    'App\\Comments' => $baseDir . '/app/Comments.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\EscalationTeam' => $baseDir . '/app/EscalationTeam.php',
     'App\\EscalationType' => $baseDir . '/app/EscalationType.php',
@@ -37,7 +39,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Region' => $baseDir . '/app/Region.php',
-    'App\\SLAStatus' => $baseDir . '/app/SLAStatus.php',
+    'App\\SlaStatus' => $baseDir . '/app/SlaStatus.php',
     'App\\TicketStatus' => $baseDir . '/app/TicketStatus.php',
     'App\\TicketTypes' => $baseDir . '/app/TicketTypes.php',
     'App\\Tickets' => $baseDir . '/app/Tickets.php',

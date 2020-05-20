@@ -358,9 +358,9 @@ body.dark .table th {
 .custom-control-label {
     line-height: 25px;
 }
-:not(img) {
+/* :not(img) {
     min-width: 0;
-}
+} */
 .custom-control-input {
     right: 0;
 }
@@ -449,9 +449,33 @@ body.dark .table th {
 }
 
 
-
-
-
+/* TOASTR CSS */
+.toast {
+    border: 0px!important;
+}
+#toast-container > div {
+    width: 400px!important;
+    opacity: 1!important;
+}
+#toast-container > .toast:before {
+    position: fixed;
+    font-family: "Nunito", sans-serif;
+    font-size: 24px;
+    line-height: 18px;
+    float: left;
+    color: #FFF;
+    padding-right: 0.5em;
+    margin: auto 0.5em auto -1.5em;
+}
+.toast-success {
+    background-color: #17A817!important;
+}
+.toast-error {
+    background-color: #D50A0A!important;
+}
+.toast-info {
+    background-color: #5499C7!important;
+}
 
 
 

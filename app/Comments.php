@@ -10,10 +10,14 @@ class Comments extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'ticket_id', 'user_id', 'comment'
+        'tickets_id', 'user_id', 'comment'
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    /**
+     * Get the user that owns the comment.
+     */
+    public function owner() 
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 }

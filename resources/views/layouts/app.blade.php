@@ -40,13 +40,13 @@
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <script src="{{ asset('js/toastr.min.js') }}"></script>
 
-    <!-- Datatables -->
+{{--     <!-- Datatables -->
     <link rel="stylesheet" href="{{ asset('dataTable/datatables.min.css') }}">
     <script src="{{ asset('dataTable/datatables.min.js') }}"></script>
 
     <!-- CKEditor -->
     {{-- <script src="{{ asset('js/ckeditor.min.js') }}"></script> --}}
-    <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script> 
+    <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script>  --}}
 
     @stack('selective_scripts')
 
@@ -65,6 +65,64 @@
             -ms-user-select: none;
             user-select: none;
             width: 100% !important;
+        }
+
+        .swal-title:not(:last-child) {
+            margin-bottom: 5px;
+        }
+        .swal-title:first-child {
+            margin-top: 13px;
+        }
+        .swal-title {
+            color: rgba(0,0,0,.65);
+            font-weight: 600;
+            text-transform: none;
+            position: relative;
+            display: block;
+            padding: 13px 16px;
+            font-size: 20px;
+            line-height: normal;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        .swal-text {
+            font-size: 16px;
+            position: relative;
+            float: none;
+            line-height: normal;
+            vertical-align: top;
+            text-align: center;
+            display: inline-block;
+            margin: 0;
+            padding: 0 10px;
+            font-weight: 400;
+            color: rgba(0,0,0,.64);
+            max-width: calc(100% - 20px);
+            overflow-wrap: break-word;
+            box-sizing: border-box;
+        }
+        .swal-button {
+            padding: 7px 20px;
+        }
+        .swal-modal {
+            width: 450px;
+            opacity: 0;
+            pointer-events: none;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            position: static;
+            margin: 20px auto;
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            z-index: 10001;
+            transition: opacity .2s,-webkit-transform .3s;
+            transition: transform .3s,opacity .2s;
+            transition: transform .3s,opacity .2s,-webkit-transform .3s;
         }
     </style>
 </head>
@@ -88,19 +146,33 @@
     {{-- @include('tickets.modals.new_ticket') --}}
 
     @stack('pre_load')
-    @stack('script')
 
 <script>
 $(document).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     successMessage = "{{ session('success') }}"
     errorMessage = "{{ session('error') }}"
 
+    toastr.options = {
+        timeOut: 8000,
+        progressBar: true,
+        showMethod: "slideDown",
+        hideMethod: "slideUp",
+        showDuration: 200,
+        hideDuration: 200
+    };
+
     if (successMessage != '') {
-        toastr.success("{{ session('success') }}", 'Success!', {timeOut: 5000})
+        toastr.success("{{ session('success') }}", {timeOut: 5000})
     }
 
     if (errorMessage != '') {
-        toastr.error("{{ session('error') }}", 'Error!', {timeOut: 5000})
+        toastr.error("{{ session('error') }}", {timeOut: 5000})
     }
 
     $('.selection').chosen();
@@ -111,5 +183,8 @@ $(document).ready(function() {
     })
 })
 </script>
+
+{{-- LOAD STACK SCRIPTS --}}
+@stack('script')
 </body>
 </html>

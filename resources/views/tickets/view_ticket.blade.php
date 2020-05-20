@@ -6,8 +6,10 @@
 
 @push('selective_scripts')
 <!-- CKEditor -->
-{{-- <script src="{{ asset('js/ckeditor.min.js') }}"></script> --}}
 <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script>
+
+<!-- Sweet Alerts -->
+<script src="{{asset('js/sweet_alerts.min.js')}}"></script>
 @endpush
 
 @push('pre_load')
@@ -77,11 +79,11 @@
                         <hr class="mb-3 mt-2">
 
                         <div class="w-100">
-                            <div class="pt-0 pb-2">
+                            <div class="pt-0 form-group">
                                 <span class="font-bold">Comments:</span>
                             </div>
 
-                            <div class="pb-1">
+                            <div class="px-2">
                                 @if ($comments->count() == 0)
                                     <div class="w-100 mb-2" style="height: 170px">
                                         <img class="image-center" src="{{ asset('img/screen-art/no_results_found.png') }}" alt="" srcset="" width="auto" height="170px">
@@ -94,16 +96,44 @@
                                     </div>
                                 @else
                                     @foreach ($comments as $comment)
-                                        <div class="w-100 mb-2">
+                                        <div class="w-100 mb-2" id="comment_{{ $comment->id }}">
                                             <div class="d-flex">
                                                 <div class="px-0">
-                                                    <img src="{{ asset('img/avatars/'.$comment->user()->avatar.'.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
+                                                    <img src="{{ asset('img/avatars/'.$comment->owner->avatar.'.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
                                                 </div>
 
                                                 <div class="px-2 flex-fill">
-                                                    <span class="text-dark d-block">{{ $comment->user()->first_name }} {{ $comment->user()->last_name }}</span>
-                                                    <span class="text-secondary d-block">{!! $comment->comment !!}</span>
-                                                    <span class="float-right d-block font-small pr-3 text-muted">{{ $comment->created_at->diffForhumans() }}</span>
+                                                    <div class="px-0">
+                                                        <div class="d-flex">
+                                                            <div class="flex-fill">
+                                                                <span class="text-dark">{{ $comment->owner->first_name }} {{ $comment->owner->last_name }}</span>
+                                                            </div>
+
+                                                            <div class="flex-fill">
+                                                                <span class="float-right font-small pr-3 text-muted">{{ $comment->created_at->diffForhumans() }}</span>
+                                                            </div>
+
+                                                            <div class="px-0">
+                                                                <a class="dropdown-toggle float-right pl-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                                    <div class="align-items-center mr-2">
+                                                                        <span class="fal fa-ellipsis-v float-right fa-lg text-dark"></span>
+                                                                    </div>
+                                                                </a>
+
+                                                                @if ($comment->user_id == Auth::user()->id)
+                                                                    <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdown">
+                                                                        <div class="w-100 px-0 border-radius">
+                                                                            <button class="dropdown-item delete-comment" data-comment="{{ $comment->id }}">Delete Comment</button>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="px-0 text-secondary">
+                                                        {!! $comment->comment !!}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,20 +141,23 @@
                                 @endif
                             </div>
 
-                            <form action="" method="post" class="px-2">
-                                <div class="w-100 pt-2 form-group">
+                            <form action="{{ route('ticket.addComment') }}" method="post" class="px-2" id="add_comment_form">
+                                @csrf
+                                <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
+
+                                <div class="w-100 form-group">
                                     <div class="mb-2">
-                                        <label for="add_comment" class="col-form-label text-md-left">Add Comment <sup class="text-danger">*</sup></label>
+                                        <label for="comment" class="col-form-label text-md-left">Add Comment <sup class="text-danger">*</sup></label>
                                         <textarea class="form-control form-control-sm" id="comment" rows="2" name="comment" value=""></textarea>
                                     </div>
                                 </div>
-                            </form>
 
-                            <div class="w-100 pt-2 px-2">
-                                <div class="mb-2 col-3 px-0">
-                                    <button type="submit" id="post_comment" class="btn btn-success btn-sm w-100">Post Comment</button>
+                                <div class="w-100 pt-2 px-2">
+                                    <div class="mb-2 col-3 px-0">
+                                        <button type="submit" id="post_comment" class="btn btn-success btn-sm w-100">Post Comment</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -458,24 +491,40 @@ CKEDITOR.config.toolbar = [
 ];
 
 $(document).ready(function() {
-    toastr.options = {
-        timeOut: 30000,
-        progressBar: true,
-        showMethod: "slideDown",
-        hideMethod: "slideUp",
-        showDuration: 200,
-        hideDuration: 200
-    };
+    $('.delete-comment').click(function() {
+        commentID = $(this).attr('data-comment')
 
-    $('#post_comment').click(function() {
-        comment = $('#comment').val()
+        swal({
+            title: "Delete Comment",
+            text: "Are you sure you want to delete this comment?",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $('#comment_' + commentID).remove()
 
-        if (comment == '' || comment == ' ') {
-            toastr.error("Cannot post an empty comment", 'Success!', {timeOut: 5000})
-        } else {
-
-        }
+                // Delete Comment
+                $.ajax({
+                    type: 'POST',
+                    data: {'comment_id': commentID},
+                    url: "{{ route('ticket.deleteComment') }}",
+                    success: function(data) {
+                        if (data == 1) {
+                            toastr.success("Comment was delete successfully", {timeOut: 5000})
+                        } else {
+                            toastr.error("Could not delete comment", {timeOut: 5000})
+                        }
+                    },
+                    error: function(data) {
+                        toastr.error("Something went wrong. Could not delete comment...", {timeOut: 5000})
+                    }
+                })
+            }
+        })
     })
+
+
 })
 </script>
 @endpush

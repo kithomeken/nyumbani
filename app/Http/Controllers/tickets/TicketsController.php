@@ -9,7 +9,7 @@ use App\Activity;
 use App\Tickets;
 use App\TicketStatus;
 use App\TicketTypes;
-use App\SLAStatus;
+use App\SlaStatus;
 use App\User;
 use Carbon\Carbon;
 use Validator;

@@ -87,20 +87,51 @@ class TicketsController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
-        $comments = Comments::where('ticket_id', $id)
+        $comments = Comments::where('tickets_id', $id)
         ->orderBy('created_at', 'desc')
         ->get();
 
         return view('tickets.view_ticket', [
-            'ticket' => $ticket,
-            'status' => $status,
-            'creator' => $creator,
-            'assigned_to' => $assigned_to,
-            'ticketType' => $ticketType,
-            'region' => $region,
-            'slaStatus' => $slaStatus,
-            'activities' => $activities,
-            'comments' => $comments,
+            'ticket'        => $ticket,
+            'status'        => $status,
+            'creator'       => $creator,
+            'assigned_to'   => $assigned_to,
+            'ticketType'    => $ticketType,
+            'region'        => $region,
+            'slaStatus'     => $slaStatus,
+            'activities'    => $activities,
+            'comments'      => $comments,
         ]);
+    }
+
+    public function addComment(Request $request) {
+        $validate = Validator::make($request->all(), [
+            'comment'     => 'required',
+        ]);
+
+        if ($validate->fails()){
+            return redirect()->back()->with('error', 'Cannot add an empty comment...');
+        }
+
+        Comments::create([
+            'user_id'     => Auth::user()->id,
+            'comment'     => $request->comment,
+            'tickets_id'  => $request->ticket_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Your comment has successfully been added');
+    }
+
+    public function deleteComment(Request $request) {
+        $commentId = $request->comment_id;
+        $delComment = Comments::where('id', $commentId)->delete();
+
+        if ($delComment) {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+
+        return $status;
     }
 }

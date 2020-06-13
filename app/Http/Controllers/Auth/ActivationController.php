@@ -84,8 +84,7 @@ class ActivationController extends Controller
         }
     }
 
-    protected function activationUrl($id, $hash)
-    {
+    protected function activationUrl($id, $hash) {
         return URL::temporarySignedRoute(
             'account.activation',
             Carbon::now()->addMinutes(360),
@@ -172,5 +171,55 @@ class ActivationController extends Controller
             }
 
         }
+    }
+
+    public function finalActivation(Request $request) {
+        $validate = Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        if ($validate->fails()){
+            return redirect()->back()->with('error', 'We could not activate your account. Passwords do not match');
+        }
+
+        # Check if user exists
+        $checkUser = User::where('email', $request->email)
+        ->whereNull('email_verified_at')
+        ->count();
+
+        if ($checkUser != 1) {
+            # Do not activate user
+            # Set Token Validity to N
+            Activation::where('user_id', $user->id)->update([
+                'is_valid' => 'N'
+            ]);
+
+            return redirect('/login')->back()->with('error', 'Account activation failed');
+        }
+
+        $user = User::where('email', $request->email)->first();
+        $validate = Activation::where('user_id', $user->id)->first();
+
+        if ($validate->is_valid == 'N') {
+            # Token is not valid
+            $status = 401;
+
+            return redirect()->back()->with('error', 'Account activation failed');
+        }
+
+        # Set Token Validity to N
+        Activation::where('user_id', $user->id)->update([
+            'is_valid' => 'N'
+        ]);
+
+        # Complete Account Setup
+        $userVerified = User::where('email', $request->email)->update([
+            'password' => Hash::make($request->password),
+            'email_verified_at' => Carbon::now(),
+            'is_active' => 'Y'
+        ]);
+
+        return redirect('/home')->with('success', 'Welcome to the ' . env('APP_NAME') . ' family...');
     }
 }

@@ -6,6 +6,7 @@
 |--------------------------------------------------------------------------
 */
 
+require_once('auth_routes.php');
 require_once('mail_routes.php');
 require_once('settings_routes.php');
 require_once('tickets_routes.php');

@@ -65,10 +65,12 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         # Check if email exists
-        $checkEmail = User::where('email', $data['email'])->whereNull('email_verified_at')->count();
+        $checkUser = User::where('email', $data['email'])
+        ->whereNull('email_verified_at')
+        ->count();
 
-        if ($checkEmail != 1) {
-            # Do not create user
+        if ($checkUser != 1) {
+            # Do not activate user
             # Set Token Validity to N
             Activation::where('user_id', $user->id)->update([
                 'is_valid' => 'N'

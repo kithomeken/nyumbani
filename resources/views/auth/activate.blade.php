@@ -57,21 +57,21 @@
                                 <h4 class="mb-1">Welcome to {{ env('APP_COMPANY') }}'s FTTH flock</h4>
 
                                 <div class="py-1">
-                                    <p class="mb-1 font-small text-center">Your account setup is almost complete. All that's left is adding your preferred password and you're good to go.</p>
+                                    <p class="mb-1 font-small text-left">Your account setup is almost complete. All that's left is adding your preferred password and you're good to go.</p>
                                 </div>
 
                                 <div class="py-0">
-                                    <form action="{{ route('register') }}" method="post">
+                                    <form action="{{ route('account.finalActivation') }}" method="post">
                                         @csrf
 
-                                        <div class="row ml-0 mr-0 justify-content-center">
+                                        <div class="row ml-0 mr-0">
                                             <div class="col-md-9 mb-1">
                                                 <span class="text-success"><b>{{ $user->email }}</b></span>
                                                 <input type="hidden" name="email" value="{{ $user->email }}">
                                             </div>
                                         </div>
 
-                                        <div class="row ml-0 mr-0 mb-3 justify-content-center">
+                                        <div class="row ml-0 mr-0 mb-3">
                                             <label for="password" class="col-md-9 col-form-label">{{ __('Password') }}</label>
 
                                             <div class="col-md-9">
@@ -85,7 +85,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row ml-0 mr-0 justify-content-center mb-4">
+                                        <div class="row ml-0 mr-0 mb-4">
                                             <label for="password-confirm" class="col-md-9 col-form-label">{{ __('Confirm Password') }}</label>
 
                                             <div class="col-md-9">
@@ -93,7 +93,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row ml-0 mr-0 justify-content-center pt-1">
+                                        <div class="row ml-0 mr-0 pt-1">
                                             <div class="col-md-5">
                                                 <button type="submit" class="btn btn-success w-100">Complete</button>
                                             </div>

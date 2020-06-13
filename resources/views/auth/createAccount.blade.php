@@ -36,7 +36,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Middle Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('other_name') is-invalid @enderror" name="other_name" value="{{ old('other_name') }}" required autocomplete="name">
+                                <input id="name" type="text" class="form-control @error('other_name') is-invalid @enderror" name="other_name" value="{{ old('other_name') }}" autocomplete="name">
 
                                 @error('other_name')
                                     <span class="invalid-feedback" role="alert">

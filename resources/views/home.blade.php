@@ -274,7 +274,7 @@
 
                             <div id="nav-tab-content" class="tab-content w-100 mb-4 px-0">
                                 <div id="overdue-tickets" class="tab-pane form-group fade active show">
-                                    <div class="w-100 py-3 px-3">
+                                    <div class="w-100 pt-3 px-3">
                                         <div class="row ml-0 mr-0">
                                             <div class="col-6 px-0">
                                                 <h5 class="text-secondary">Overdue Workload</h5>
@@ -302,17 +302,20 @@
                                         </div>
                                     </div>
 
-                                    <div class="w-100 py-2 px-3 table-responsive">
-                                        <table id="overdue-table" class="table table-hover table-border-0 w-100 font-small overdue-table">
+                                    <div class="w-100 pb-2 px-3 table-responsive">
+                                        <table id="overdue_table" class="table table-hover table-border-0 w-100 font-small overdue-table">
                                             <thead>
                                                 <tr>
                                                     <th>Agent</th>
                                                     <th>Type</th>
                                                     <th>Region</th>
                                                     <th>Priority</th>
-                                                    <th>Status</th>
                                                     <th>Created</th>
                                                 </tr>
+
+                                                <tbody>
+
+                                                </tbody>
                                             </thead>
                                         </table>
                                     </div>
@@ -438,6 +441,35 @@ $(document).ready(function() {
         // $('#note_action_' + note_item).hide()
         $('#note_action_' + note_item).fadeOut( 400 );
     });
+
+    $('#overdue_table').DataTable({
+        processing: true,
+        serverSide: true,
+        "bPaginate": false,
+        "searching": false,
+        ajax: '{!! route('datatables.overdueTable') !!}',
+        columns: [
+            { data: 'agent' },
+            { data: 'type' },
+            { data: 'region' },
+            { data: 'priority' },
+            { data: 'created_at' },
+        ],
+        createdRow: function( row, data, dataIndex ) {
+            $(row).find('td:eq(0)')
+            .attr('data-ticket', data.id)
+        }
+    });
+
+    $('#overdue_table').on('click', 'tr', function() {
+        ticket_id = $(this).closest('tr').find('td:eq(0)').attr('data-ticket')
+
+        if (ticket_id != null) {
+            url = "{{ url('u/default/tickets/view') }}"
+            url = url + "/" + ticket_id
+            window.location.href = url;
+        }
+    })
 })
 </script>
 @endpush

@@ -135,7 +135,7 @@
 
             @include('layouts.top-navigation')
             
-            <main class="pb-3 mt-56 pl-3">
+            <main class="py-3 mt-56 pl-3">
                 
                 @yield('content')
             

@@ -312,10 +312,6 @@
                                                     <th>Priority</th>
                                                     <th>Created</th>
                                                 </tr>
-
-                                                <tbody>
-
-                                                </tbody>
                                             </thead>
                                         </table>
                                     </div>
@@ -351,14 +347,13 @@
                                     </div>
 
                                     <div class="w-100 py-2 px-3">
-                                        <table id="today-table" class="table table-hover table-border-0 w-100 font-small overdue-table">
+                                        <table id="today_table" class="table table-hover table-border-0 w-100 font-small today-table">
                                             <thead>
                                                 <tr>
                                                     <th>Agent</th>
                                                     <th>Type</th>
                                                     <th>Region</th>
                                                     <th>Priority</th>
-                                                    <th>Status</th>
                                                     <th>Created</th>
                                                 </tr>
                                             </thead>
@@ -462,6 +457,35 @@ $(document).ready(function() {
     });
 
     $('#overdue_table').on('click', 'tr', function() {
+        ticket_id = $(this).closest('tr').find('td:eq(0)').attr('data-ticket')
+
+        if (ticket_id != null) {
+            url = "{{ url('u/default/tickets/view') }}"
+            url = url + "/" + ticket_id
+            window.location.href = url;
+        }
+    })
+
+    $('#today_table').DataTable({
+        processing: true,
+        serverSide: true,
+        "bPaginate": false,
+        "searching": false,
+        ajax: '{!! route('datatables.todayTable') !!}',
+        columns: [
+            { data: 'agent' },
+            { data: 'type' },
+            { data: 'region' },
+            { data: 'priority' },
+            { data: 'created_at' },
+        ],
+        createdRow: function( row, data, dataIndex ) {
+            $(row).find('td:eq(0)')
+            .attr('data-ticket', data.id)
+        }
+    });
+
+    $('#today_table').on('click', 'tr', function() {
         ticket_id = $(this).closest('tr').find('td:eq(0)').attr('data-ticket')
 
         if (ticket_id != null) {

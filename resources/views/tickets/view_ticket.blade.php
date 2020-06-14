@@ -23,6 +23,27 @@
     #cke_1_contents {
         height: 120px!important
     }
+    #reassign_ticket {
+        cursor: pointer;
+    }
+    select.form-control-sm + .chosen-container.chosen-container-single .chosen-single {
+        display: block;
+        width: 100%;
+        height: 30px;
+        padding: 3.5px 12px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #555;
+        vertical-align: middle;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+        -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        background-image: none;
+    }
 </style>
 
 <div class="container-fluid">
@@ -41,17 +62,20 @@
             {{-- CONTENT SECTION --}}
             <div class="col-md-8 pl-0">
                 <div class="card border-0 shadow-wd mb-4">
-                    <div class="card-header background-white border-0">
+                    <div class="card-header background-white border-0 pb-0">
                         <div class="row mx-0">
-                            <div class="col-md-8 px-0">
-                                <div class="d-flex align-items-center pt-1">
-                                    <img src="{{ asset('img/avatars/'.$creator->avatar.'.png') }}" class="rounded-circle mr-2" alt="" srcset="" width="35px">
-        
-                                    <div class="ml-2">
-                                        <span class="font-bold d-block font-large">{{ $ticket->summary }}</span>
-                                        <span class="badge bg-info-bright text-info">{{ $status->description }}</span>
-                                    </div>
-                                </div>
+                            <div class="col-md-12 px-0 pb-2">
+                                <span class="font-bold d-block font-xlarge">{{ $ticket->summary }}</span>
+
+                                <span class="text-dark font-small d-block pb-1">
+                                    <span class="text-success fad fa-calendar-week fa-lg mr-1"></span>
+                                    {{ $isoFormat }}
+                                </span>
+
+                                <span class="text-dark font-small d-block">
+                                    <span class="text-success fad fa-user-circle fa-lg mr-1"></span>
+                                    {{ $creator->first_name }} {{ $creator->last_name }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -62,25 +86,19 @@
                             <div class="text-secondary form-group">
                                 {!! $ticket->content !!}
                             </div>
-
-                            <div class="w-100 mini-attr-slot font-small text-secondary">
-                                <div class="d-flex align-items-center">
-                                    {{-- <span class="fal fa-clock mr-2"></span> --}}
-                                    <span class="m-0">{{ $ticket->created_at->diffForhumans() }}</span>
-                                </div>
-
-                                <div class="d-flex align-items-center">
-                                    {{-- <span class="fal fa-user mr-2"></span> --}}
-                                    <span class="m-0">{{ $creator->first_name }} {{ $creator->last_name }}s</span>
-                                </div>
-                            </div>
                         </div>
 
-                        <hr class="mb-3 mt-2">
-
                         <div class="w-100">
-                            <div class="pt-0 form-group">
-                                <span class="font-bold">Comments:</span>
+                            <div class="form-group">
+                                <div class="d-flex">
+                                    <div class="m-auto pr-2">
+                                        <span class="font-normal">Comments</span>
+                                    </div>
+    
+                                    <div class="flex-fill">
+                                        <hr>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="px-2">
@@ -106,11 +124,10 @@
                                                     <div class="px-0">
                                                         <div class="d-flex">
                                                             <div class="flex-fill">
-                                                                <span class="text-dark">{{ $comment->owner->first_name }} {{ $comment->owner->last_name }}</span>
-                                                            </div>
-
-                                                            <div class="flex-fill">
-                                                                <span class="float-right font-small pr-3 text-muted">{{ $comment->created_at->diffForhumans() }}</span>
+                                                                <span class="text-dark">
+                                                                    <span class="mr-2 text-dark">{{ $comment->owner->first_name }} {{ $comment->owner->last_name }}</span>
+                                                                    <span class=" font-small pr-3 text-muted">{{ $comment->created_at->diffForhumans() }}</span>
+                                                                </span>
                                                             </div>
 
                                                             <div class="px-0">
@@ -235,74 +252,148 @@
                         </div>
 
                         <div class="card-body pt-0 pb-0">
-                            <div class="row mx-0">
-                                <div class="col-4 px-0 pb-1">
-                                    <span class="text-secondary font-bold">Type</span>
-                                </div>
-                                <div class="col-8 px-0 pb-1">
-                                    <span class="text-secondary">{{ $ticketType->description }}</span>
-                                </div>
-                                <div class="col-8 offset-4 pb-1 px-0">
-                                    <span class="text-info fas fa-bookmark mr-2"></span>
-                                    <span class="text-secondary">{{ $status->description }}</span>
-                                </div>
-
-                                <div class="col-8 offset-4 pb-1 px-0">
-                                    <span class="text-success fas fa-square mr-1"></span>
-                                    @if ($ticket->priority == 1)
-                                        <span class="text-secondary">Low Priority</span>
-                                    @elseif ($ticket->priority == 2)
-                                        <span class="text-secondary">Medium Priority</span>
-                                    @else 
-                                        <span class="text-secondary">High Priority</span>
-                                    @endif
-                                </div>
-
-                                <div class="col-8 offset-4 pb-2 px-0">
-                                    <span class="text-info fas fa-globe-africa mr-1"></span>
-                                    <span class="text-secondary">{{ $region->region_name }} Region</span>
-                                </div>
-
-                                <div class="col-8 offset-4 pb-2 px-0">
-                                    <div class="d-flex align-items-center">
-                                        <div class="px-0 mr-3">
-                                            <span class="fal fa-check-circle fa-3x text-success"></span>
+                            <div class="row mx-0 form-group">
+                                <div class="col-md-4 px-0">
+                                    <div id="activeBorder" class="active-border">
+                                        <div id="circle" class="sla-circle">
+                                            <span class="prec 170" id="prec">0%</span>
                                         </div>
-        
-                                        <div class="flex-fill px-0">
-                                            <span class="text-success d-block">{{ $slaStatus->status_description }}</span>
-                                            <span class="text-success font-small d-block">12 Hours to SLA</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8 px-0 form-group">
+                                    <div class="w-100 form-group">
+                                        <span class="font-large text-success font-bold pb-1 d-block">Within SLA</span>
+                                        <span class="text-secondary font-bold pb-1 d-block">Time to resolution</span>
+                                        <span class="text-dark d-block font-bold">+ 6.2 Hours</span>
+                                    </div>
+
+
+                                    <div class="row mx-0 form-group">
+                                        <div class="col-md-6 px-0">
+                                            <span class="text-secondary d-block font-bold pb-2">Type:</span>
+                                            <span class="text-inc fad fa-album fa-lg mr-1"></span>
+                                            <span class="text-secondary">{{ $ticketType->description }}</span>
+                                        </div>
+
+                                        <div class="col-md-6 px-0">
+                                            <span class="text-secondary d-block font-bold pb-2">Priority:</span>
+                                            @if ($ticket->priority == 1)
+                                                <span class="text-success far fa-arrow-circle-up fa-lg mr-1"></span>
+                                                <span class="text-secondary">Low</span>
+                                            @elseif ($ticket->priority == 2)
+                                                <span class="text-warning far fa-arrow-circle-up fa-lg mr-1"></span>
+                                                <span class="text-secondary">Medium</span>
+                                            @else
+                                                <span class="text-danger far fa-arrow-circle-up fa-lg mr-1"></span>
+                                                <span class="text-secondary">High</span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="row mx-0">
+                                        <div class="col-md-6 px-0">
+                                            <span class="text-secondary d-block font-bold pb-2">Status:</span>
+                                            <h6 class="mb-0"><span class="badge badge-success">{{ $status->description }}</span></h5>
+                                        </div>
+
+                                        <div class="col-md-6 px-0">
+                                            <span class="text-secondary d-block font-bold pb-2">Resolution:</span>
+                                            <span class="text-warning fad fa-compact-disc fa-lg mr-1"></span>
+                                            <span class="text-secondary">Unresolved</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8 offset-md-4 px-0">
+                                    <span class="text-secondary d-block font-bold pb-2">Region:</span>
+                                    <span class="text-info fad fa-globe-africa fa-lg mr-1"></span>
+                                    <span class="text-secondary">{{ $region->region_name }}</span>
+                                </div>
+                            </div>
+
+                            <div class="row mx-0 form-group">
+                                <div class="col-4 px-0 pb-1">
+                                    <span class="text-secondary font-bold">Created by:</span>
+                                </div>
+
+                                <div class="col-8 px-0 pb-1">
+                                    <span class="text-secondary d-block pb-2">
+                                        {{ $creator->first_name }} {{ $creator->last_name }}
+                                    </span>
+
+                                    <span class="text-secondary d-block pb-2">
+                                        Phone: {{ $creator->msisdn }}
+                                    </span>
+
+                                    <span class="text-secondary d-block">
+                                        {{ $ticket->created_at->diffForhumans() }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row mx-0 form-group">
+                                <div class="col-4 px-0 pb-1">
+                                    <span class="text-secondary font-bold">Assigned To:</span>
+                                </div>
+
+                                <div class="col-8 px-0 pb-1">
+                                    <span class="text-secondary d-block pb-2">
+                                        {{ $assigned_to->first_name }} {{ $assigned_to->last_name }}
+                                    </span>
+
+                                    <span class="text-secondary d-block pb-2">
+                                        Phone: {{ $assigned_to->msisdn }}
+                                    </span>
+
+                                    <div class="w-100" id="reassign_btn">
+                                        <span class="text-info d-block font-bold pb-2" id="reassign_ticket">
+                                            Reassign Ticket
+                                        </span>
+                                    </div>
+
+                                    <div class="w-100 py-2 px-3" id="reassign_div" style="background: #F4F5F6!important">
+                                        <div class="w-100">
+                                            <span class="font-dark d-block pb-1 text-left">
+                                                Select preferred agent to reassign ticket to
+                                            </span>
+                                        </div>
+                                    
+                                        <div class="w-100 pb-4">
+                                            <label for="agent" class="col-md-12 px-0 col-form-label text-md-left">Agent <sup class="text-danger">*</sup></label>
+                                            <select class="form-control form-control-sm selection" id="agent" name="agent" required="">
+                                                <option selected="" value="" default="">Choose...</option>
+                                    
+                                                @foreach ($agents as $agent)
+                                                    <option value="{{ $agent->id }}">{{ $agent->first_name }} {{ $agent->last_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    
+                                        <div class="d-flex w-100 pb-2">
+                                            <div class="w-50 pr-3">
+                                                <button type="submit" id="cancel_reassign" class="btn btn-secondary btn-sm w-100">Cancel</button>
+                                            </div>
+                                    
+                                            <div class="w-50 pl-3">
+                                                <button type="submit" id="cancel_reassign" class="btn btn-success btn-sm w-100">Reassign</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row mx-0">
-                                <div class="col-4 pb-1 px-0">
-                                    <span class="text-secondary font-bold">Assigned:</span>
-                                </div>
-                                <div class="col-8 pb-2 px-0">
-                                    <span class="text-secondary">{{ $assigned_to->first_name }} {{ $assigned_to->last_name }}</span>
-                                    <span class="fad fa-question-square ml-2" data-toggle="tooltip" data-placement="bottom" title="Phone No: {{$assigned_to->msisdn }}"></span>
-                                </div>
-
-                                <div class="col-4 px-0 pb-1">
-                                    <span class="text-secondary font-bold">Created by:</span>
-                                </div>
-                                <div class="col-8 px-0 pb-1">
-                                    <span class="text-secondary">{{ $creator->first_name }} {{ $creator->last_name }}</span>
-                                    <span class="fad fa-question-square ml-2" data-toggle="tooltip" data-placement="bottom" title="Phone No: {{ $creator->msisdn }}"></span>
-                                </div>
-                                <div class="col-8 px-0 offset-4 pb-1">
-                                    
-                                </div>
-                            </div>
-
-                            <hr>
                         </div>
 
                         <div class="card-header pt-0 background-white border-0">
-                            <span class="font-normal">Task List</span>
+                            <div class="d-flex">
+                                <div class="m-auto pr-2">
+                                    <span class="font-normal">Task List</span>
+                                </div>
+
+                                <div class="flex-fill">
+                                    <hr>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="card-body pt-0 pb-0">
@@ -491,6 +582,9 @@ CKEDITOR.config.toolbar = [
 ];
 
 $(document).ready(function() {
+    $('#reassign_btn').show()
+    $('#reassign_div').hide()
+
     $('.delete-comment').click(function() {
         commentID = $(this).attr('data-comment')
 
@@ -523,6 +617,68 @@ $(document).ready(function() {
             }
         })
     })
+
+    $('#reassign_ticket').click(function() {
+        $('#reassign_btn').hide()
+        $('#reassign_div').show()
+    })
+
+    $('#cancel_reassign').click(function() {
+        $('#reassign_div').hide()
+        $('#reassign_btn').show()
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    setTimeout(function(){
+        loopit(1);
+    },1);
+
+    var i = 0 , prec;
+    // var degs = $("#prec").attr("class").split(' ')[1];
+    var degs = Math.round(Math.random() * 360)
+    var activeBorder = $("#activeBorder");
+
+    function loopit(loop){
+        if (loop == 1) {
+            i++
+        }
+
+        if (i < 0) {
+            i = 0
+        }
+
+        if (i > degs) {
+            i = degs;
+            loop = 0
+        }
+
+        prec = (100 * i)/360;   
+        $(".prec").html(Math.round(prec)+"%");
+
+        if (i <= 180) {
+            activeBorder.css('background-image','linear-gradient(' + (parseInt(90) + parseInt(i)) + 'deg, transparent 50%, #A9DFBF 50%), linear-gradient(90deg, #A9DFBF 50%, transparent 50%)');
+        } else {
+            activeBorder.css('background-image','linear-gradient(' + (parseInt(i) - parseInt(90)) + 'deg, transparent 50%, #0BC619 50%),linear-gradient(90deg, #A9DFBF 50%, transparent 50%)');
+        }
+        
+        if (loop == 1) {
+            setTimeout(function(){
+                loopit(loop);
+            }, 1);
+        }
+    }
 
 
 })

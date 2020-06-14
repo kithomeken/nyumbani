@@ -91,6 +91,12 @@ class TicketsController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
+        $created = Carbon::parse($ticket->created_at);
+        $isoFormat = $created->isoFormat('lLL');
+
+        $agents = User::where('designation', 'TCH')
+        ->get();
+
         return view('tickets.view_ticket', [
             'ticket'        => $ticket,
             'status'        => $status,
@@ -101,6 +107,8 @@ class TicketsController extends Controller
             'slaStatus'     => $slaStatus,
             'activities'    => $activities,
             'comments'      => $comments,
+            'isoFormat'     => $isoFormat,
+            'agents'        => $agents,
         ]);
     }
 

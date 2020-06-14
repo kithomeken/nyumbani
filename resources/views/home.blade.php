@@ -17,6 +17,12 @@
 @endpush
 
 @section('content')
+<style>
+    table.dataTable tbody tr td{
+        cursor: pointer;
+    }
+</style>
+
 <div class="container-fluid">
     <div class="w-100 pl-0 py-1">
         <div class="w-100 pb-3">
@@ -319,7 +325,7 @@
                                                         <th>Type</th>
                                                         <th>Region</th>
                                                         <th>Priority</th>
-                                                        <th>Created</th>
+                                                        <th>Created On</th>
                                                     </tr>
                                                 </thead>
                                             </table>
@@ -365,7 +371,7 @@
                                                         <th>Type</th>
                                                         <th>Region</th>
                                                         <th>Priority</th>
-                                                        <th>Created</th>
+                                                        <th>Created On</th>
                                                     </tr>
                                                 </thead>
                                             </table>
@@ -411,7 +417,7 @@
                                                         <th>Type</th>
                                                         <th>Region</th>
                                                         <th>Priority</th>
-                                                        <th>Scheduled</th>
+                                                        <th>Scheduled To</th>
                                                     </tr>
                                                 </thead>
                                             </table>

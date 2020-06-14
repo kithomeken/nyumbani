@@ -46,7 +46,7 @@
 
     <!-- CKEditor -->
     {{-- <script src="{{ asset('js/ckeditor.min.js') }}"></script> --}}
-    <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script>  --}}
+    <script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script>
 
     @stack('selective_scripts')
 
@@ -135,7 +135,7 @@
 
             @include('layouts.top-navigation')
             
-            <main class="pb-3 mt-56 pl-3">
+            <main class="py-3 mt-56 pl-3">
                 
                 @yield('content')
             

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Mail;
-
+use App\Tickets;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -25,9 +25,24 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
+    public function index() {
+        $overdueCount = Tickets::where('sla_status', '9002')
+        ->where('status', '<>', 2102)
+        ->count();
+
+        $dueCount = Tickets::where('sla_status', '9001')
+        ->where('status', '<>', 2102)
+        ->count();
+
+        $scheduledCount = Tickets::where('sla_status', '9003')
+        ->where('status', '<>', 2102)
+        ->count();
+
+        return view('home', [
+            'overdueCount' => $overdueCount,
+            'dueCount' => $dueCount,
+            'scheduledCount' => $scheduledCount
+        ]);
     }
 
     public function attachment_email() {

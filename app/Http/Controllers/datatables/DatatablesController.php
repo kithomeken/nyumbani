@@ -79,4 +79,37 @@ class DatatablesController extends Controller
         })
         ->make(true);
     }
+
+    public function scheduledTable(Request $request) {
+        $scheduled = Tickets::where('sla_status', '9003')
+        ->where('status', '<>', 2102)
+        ->get();
+
+        return Datatables::of($scheduled)
+        ->editColumn('agent', function($ticket) {
+            $user = User::where('id', $ticket->assigned_to)->first();
+            return $user->first_name . ' ' . $user->last_name;
+        })
+        ->editColumn('type', function($ticket) {
+            $ticketType = TicketTypes::where('ticket_code', $ticket->type)->first();
+            return $ticketType->description;
+        })
+        ->editColumn('region', function($ticket) {
+            $region = Region::where('region_code', $ticket->region_id)->first();
+            return $region->region_name;
+        })
+        ->editColumn('priority', function($ticket) {
+            if ($ticket->priotity == 1) {
+                return 'Low Priority';
+            } elseif ($ticket->priority == 2) {
+                return 'Medium Priority';
+            } else {
+                return 'High Priority';
+            }
+        })
+        ->editColumn('created_at', function($ticket) {
+            return $ticket->created_at->diffForHumans();
+        })
+        ->make(true);
+    }
 }

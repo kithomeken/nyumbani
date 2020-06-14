@@ -261,150 +261,163 @@
 
                         <div class="card-body p-0 shadow-wd rounder-border">
                             <ul id="nav-tabs" class="nav nav-tabs" role="tablist">
-                                <li class="nav-item">
-                                    <a href="#overdue-tickets" id="overdue-tab" class="nav-link active" data-toggle="tab" aria-selected="true">Overdue Tickets</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#today-tickets" id="today-tab" class="nav-link" data-toggle="tab" aria-selected="true">Due Today</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#tomorrow-tickets" id="tomorrow-tab" class="nav-link" data-toggle="tab" aria-selected="true">Due Tomorrow</a>
-                                </li>
+                                @if ($overdueCount > 0)                                    
+                                    <li class="nav-item">
+                                        <a href="#overdue-tickets" id="overdue-tab" class="nav-link active" data-toggle="tab" aria-selected="true">Overdue Tickets</a>
+                                    </li>
+                                @endif
+
+                                @if ($dueCount > 0)
+                                    <li class="nav-item">
+                                        <a href="#today-tickets" id="today-tab" class="nav-link" data-toggle="tab" aria-selected="true">Due Today</a>
+                                    </li>
+                                @endif
+                                
+                                @if ($scheduledCount > 0)
+                                    <li class="nav-item">
+                                        <a href="#scheduled-tickets" id="scheduled-tab" class="nav-link" data-toggle="tab" aria-selected="true">Due Tomorrow</a>
+                                    </li>
+                                @endif
                             </ul>
 
                             <div id="nav-tab-content" class="tab-content w-100 mb-4 px-0">
-                                <div id="overdue-tickets" class="tab-pane form-group fade active show">
-                                    <div class="w-100 pt-3 px-3">
-                                        <div class="row ml-0 mr-0">
-                                            <div class="col-6 px-0">
-                                                <h5 class="text-secondary">Overdue Workload</h5>
-                                                <p class="font-small">Before embarking on today's workload, take a look at what was left undone on the previous day(s).</p>
-                                            </div>
+                                @if ($overdueCount > 0)
+                                    <div id="overdue-tickets" class="tab-pane form-group fade active show">
+                                        <div class="w-100 pt-3 px-3">
+                                            <div class="row ml-0 mr-0">
+                                                <div class="col-6 px-0">
+                                                    <h5 class="text-secondary">Overdue Workload</h5>
+                                                    <p class="font-small">Before embarking on today's workload, take a look at what was left undone on the previous day(s).</p>
+                                                </div>
 
-                                            <div class="col-md-6 py-3 text-center px-0 pl-3">
-                                                <div class="row ml-0 mr-0">
-                                                    <div class="col-4 px-0 border-right">
-                                                        <h4 class="mb-0 font-medium">0</h4>
-                                                        <span class="text-muted font-small">Connections</span>
-                                                    </div>
+                                                <div class="col-md-6 py-3 text-center px-0 pl-3">
+                                                    <div class="row ml-0 mr-0">
+                                                        <div class="col-4 px-0 border-right">
+                                                            <h4 class="mb-0 font-medium">0</h4>
+                                                            <span class="text-muted font-small">Connections</span>
+                                                        </div>
 
-                                                    <div class="col-4 px-0 border-right">
-                                                        <h4 class="mb-0 font-medium">0</h4>
-                                                        <span class="text-muted font-small">Incidence</span>
-                                                    </div>
+                                                        <div class="col-4 px-0 border-right">
+                                                            <h4 class="mb-0 font-medium">0</h4>
+                                                            <span class="text-muted font-small">Incidence</span>
+                                                        </div>
 
-                                                    <div class="col-4 px-0 border-light">
-                                                        <h4 class="mb-0 font-medium">0</h4>
-                                                        <span class="text-muted font-small">Others</span>
+                                                        <div class="col-4 px-0 border-light">
+                                                            <h4 class="mb-0 font-medium">0</h4>
+                                                            <span class="text-muted font-small">Others</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="w-100 pb-2 px-3 table-responsive">
+                                            <table id="overdue_table" class="table table-hover table-border-0 w-100 font-small overdue-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Agent</th>
+                                                        <th>Type</th>
+                                                        <th>Region</th>
+                                                        <th>Priority</th>
+                                                        <th>Created</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
                                     </div>
+                                @endif
 
-                                    <div class="w-100 pb-2 px-3 table-responsive">
-                                        <table id="overdue_table" class="table table-hover table-border-0 w-100 font-small overdue-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Agent</th>
-                                                    <th>Type</th>
-                                                    <th>Region</th>
-                                                    <th>Priority</th>
-                                                    <th>Created</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
+                                @if ($dueCount > 0)
+                                    <div id="today-tickets" class="tab-pane form-group fade show">
+                                        <div class="w-100 pt-3 px-3">
+                                            <div class="row ml-0 mr-0">
+                                                <div class="col-6 px-0">
+                                                    <h5 class="text-secondary">Due Today</h5>
+                                                    <p class="font-small">Here's what you have planned for the day.</p>
+                                                </div>
 
-                                <div id="today-tickets" class="tab-pane form-group fade show">
-                                    <div class="w-100 py-3 px-3">
-                                        <div class="row ml-0 mr-0">
-                                            <div class="col-6 px-0">
-                                                <h5 class="text-secondary">Due Today</h5>
-                                                <p class="font-small">Here's what you have planned for the day.</p>
-                                            </div>
+                                                <div class="col-md-6 pb-3 text-center px-0 pl-3">
+                                                    <div class="row ml-0 mr-0">
+                                                        <div class="col-4 px-0 border-right">
+                                                            <h4 class="mb-0 font-medium">0</h4>
+                                                            <span class="text-muted font-small">Connections</span>
+                                                        </div>
 
-                                            <div class="col-md-6 py-3 text-center px-0 pl-3">
-                                                <div class="row ml-0 mr-0">
-                                                    <div class="col-4 px-0 border-right">
-                                                        <h4 class="mb-0 font-medium">0</h4>
-                                                        <span class="text-muted font-small">Connections</span>
-                                                    </div>
+                                                        <div class="col-4 px-0 border-right">
+                                                            <h4 class="mb-0 font-medium">0</h4>
+                                                            <span class="text-muted font-small">Incidence</span>
+                                                        </div>
 
-                                                    <div class="col-4 px-0 border-right">
-                                                        <h4 class="mb-0 font-medium">0</h4>
-                                                        <span class="text-muted font-small">Incidence</span>
-                                                    </div>
-
-                                                    <div class="col-4 px-0 border-light">
-                                                        <h4 class="mb-0 font-medium">0</h4>
-                                                        <span class="text-muted font-small">Others</span>
+                                                        <div class="col-4 px-0 border-light">
+                                                            <h4 class="mb-0 font-medium">0</h4>
+                                                            <span class="text-muted font-small">Others</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="w-100 py-2 px-3">
+                                            <table id="today_table" class="table table-hover table-border-0 w-100 font-small today-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Agent</th>
+                                                        <th>Type</th>
+                                                        <th>Region</th>
+                                                        <th>Priority</th>
+                                                        <th>Created</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
                                     </div>
+                                @endif
 
-                                    <div class="w-100 py-2 px-3">
-                                        <table id="today_table" class="table table-hover table-border-0 w-100 font-small today-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Agent</th>
-                                                    <th>Type</th>
-                                                    <th>Region</th>
-                                                    <th>Priority</th>
-                                                    <th>Created</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
+                                @if ($scheduledCount > 0)
+                                    <div id="scheduled-tickets" class="tab-pane form-group fade show">
+                                        <div class="w-100 pt-3 px-3">
+                                            <div class="row ml-0 mr-0">
+                                                <div class="col-6 px-0">
+                                                    <h5 class="text-secondary">Due Tomorrow</h5>
+                                                    <p class="font-small">Here's what we picked up from your schedule.</p>
+                                                </div>
 
-                                <div id="tomorrow-tickets" class="tab-pane form-group fade show">
-                                    <div class="w-100 py-3 px-3">
-                                        <div class="row ml-0 mr-0">
-                                            <div class="col-6 px-0">
-                                                <h5 class="text-secondary">Due Tomorrow</h5>
-                                                <p class="font-small">Here's what we picked up from your schedule.</p>
-                                            </div>
+                                                <div class="col-md-6 py-3 text-center px-0 pl-3">
+                                                    <div class="row ml-0 mr-0">
+                                                        <div class="col-4 px-0 border-right">
+                                                            <h4 class="mb-0 font-medium">0</h4>
+                                                            <span class="text-muted font-small">Connections</span>
+                                                        </div>
 
-                                            <div class="col-md-6 py-3 text-center px-0 pl-3">
-                                                <div class="row ml-0 mr-0">
-                                                    <div class="col-4 px-0 border-right">
-                                                        <h4 class="mb-0 font-medium">0</h4>
-                                                        <span class="text-muted font-small">Connections</span>
-                                                    </div>
+                                                        <div class="col-4 px-0 border-right">
+                                                            <h4 class="mb-0 font-medium">0</h4>
+                                                            <span class="text-muted font-small">Incidence</span>
+                                                        </div>
 
-                                                    <div class="col-4 px-0 border-right">
-                                                        <h4 class="mb-0 font-medium">0</h4>
-                                                        <span class="text-muted font-small">Incidence</span>
-                                                    </div>
-
-                                                    <div class="col-4 px-0 border-light">
-                                                        <h4 class="mb-0 font-medium">0</h4>
-                                                        <span class="text-muted font-small">Others</span>
+                                                        <div class="col-4 px-0 border-light">
+                                                            <h4 class="mb-0 font-medium">0</h4>
+                                                            <span class="text-muted font-small">Others</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="w-100 py-2 px-3">
-                                        <table id="tomorrow-table" class="table table-hover table-border-0 w-100 font-small overdue-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Agent</th>
-                                                    <th>Type</th>
-                                                    <th>Region</th>
-                                                    <th>Priority</th>
-                                                    <th>Status</th>
-                                                    <th>Scheduled</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
+                                        <div class="w-100 py-2 px-3">
+                                            <table id="scheduled_table" class="table table-hover table-border-0 w-100 font-small scheduled-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Agent</th>
+                                                        <th>Type</th>
+                                                        <th>Region</th>
+                                                        <th>Priority</th>
+                                                        <th>Scheduled</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -494,6 +507,49 @@ $(document).ready(function() {
             window.location.href = url;
         }
     })
+
+    $('#scheduled_table').DataTable({
+        processing: true,
+        serverSide: true,
+        "bPaginate": false,
+        "searching": false,
+        ajax: '{!! route('datatables.scheduledTable') !!}',
+        columns: [
+            { data: 'agent' },
+            { data: 'type' },
+            { data: 'region' },
+            { data: 'priority' },
+            { data: 'created_at' },
+        ],
+        createdRow: function( row, data, dataIndex ) {
+            $(row).find('td:eq(0)')
+            .attr('data-ticket', data.id)
+        }
+    });
+
+    $('#scheduled_table').on('click', 'tr', function() {
+        ticket_id = $(this).closest('tr').find('td:eq(0)').attr('data-ticket')
+
+        if (ticket_id != null) {
+            url = "{{ url('u/default/tickets/view') }}"
+            url = url + "/" + ticket_id
+            window.location.href = url;
+        }
+    })
+
+    overdueCount = '{{ $overdueCount }}'
+    dueCount = '{{ $dueCount }}'
+    scheduledCount = '{{ $scheduledCount }}'
+
+    if (overdueCount == 0) {
+        $('#today-tab').addClass('active')
+        $('#today-tickets').addClass('active')
+    }
+
+    if (dueCount == 0) {
+        $('#scheduled-tab').addClass('active')
+        $('#scheduled-tickets').addClass('active')
+    }
 })
 </script>
 @endpush

@@ -43,29 +43,16 @@
                             <table id="type_table" class="table w-100 table-striped table-sm table-borderless">
                                 <thead>
                                     <tr>
-                                        <th style="width: 60%">Description</th>
-                                        <th style="width: 20%">Ticket Code</th>
-                                        <th style="width: 20%">Action</th>
+                                        <th>Ticket Code</th>
+                                        <th>Description</th>
+                                        <th>Time To Resolution</th>
+                                        <th>Compliance</th>
+                                        <th>Escalation Matrix</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($ticketTypes as $type)
-                                        <tr>
-                                            <td>{{ $type->description }}</td>
-                                            <td>{{ $type->ticket_code }}</td>
-
-                                            @if ($type->system_defined == 'Y')
-                                                <td>System Defined</td>
-                                            @else
-                                                <td>
-                                                    <button class="btn btn-sm py-0 edit-type">
-                                                        <span id="edit_type" class="fal fa-edit text-primary"></span>
-                                                    </button>
-                                                </td>
-                                            @endif
-                                        </tr>
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -232,7 +219,7 @@
 @push('script')
 <script>
 /*
-=======Pre-Document Ready======
+=======Pre-Document Readyww=====
 */
 $('#type_form').hide()
 $('#region_form').hide()
@@ -242,12 +229,33 @@ $('#region_datatable').DataTable({
     processing: true,
     serverSide: true,
     autoWidth: false,
+    "bInfo": false,
     type: 'GET',
     ajax: "{{ route('settings.getRegion') }}",
     columns: [
         { data: 'region_name', name: 'region_name' },
         { data: 'region_code', name: 'region_code' },
         { data: 'completed', name: 'completed' },
+        { data: 'action', name: 'action' },
+    ]
+});
+
+$('#type_table').DataTable({
+    processing: true,
+    serverSide: true,
+    autoWidth: false,
+    searching: false,
+    "bLengthChange": false,
+    "bFilter": true,
+    "bInfo": false,
+    type: 'GET',
+    ajax: "{{ route('datatables.getTicketType') }}",
+    columns: [
+        { data: 'ticket_code', name: 'ticket_code' },
+        { data: 'description', name: 'description' },
+        { data: 'ttr', name: 'ttr' },
+        { data: 'compliance', name: 'compliance' },
+        { data: 'escalate', name: 'escalate' },
         { data: 'action', name: 'action' },
     ]
 });

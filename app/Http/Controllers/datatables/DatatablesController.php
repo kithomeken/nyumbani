@@ -112,4 +112,16 @@ class DatatablesController extends Controller
         })
         ->make(true);
     }
+
+    public function getTicketType() {
+        $ticketType = TicketTypes::where('deleted', 'N')->get();
+
+        return datatables()->of($ticketType)
+        ->addColumn('action', function ($ticketType) {
+            return '<button class="btn btn-sm py-0 edit-type">
+                <span id="edit_type" class="fal fa-edit text-primary"></span>
+            </button>';
+        })
+        ->make(true);
+    }
 }

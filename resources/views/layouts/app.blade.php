@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <script src="{{ asset('js/toastr.min.js') }}"></script>
 
-{{--     <!-- Datatables -->
+    <!-- Datatables -->
     <link rel="stylesheet" href="{{ asset('dataTable/datatables.min.css') }}">
     <script src="{{ asset('dataTable/datatables.min.js') }}"></script>
 
@@ -180,8 +180,14 @@ $(document).ready(function() {
     $('.selection').chosen();
     $('.selection').trigger("chosen:updated");
 
+    // ToolTip
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    // Popover
+    $(function () {
+        $('[data-toggle="popover"]').popover()
     })
 })
 </script>

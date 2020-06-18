@@ -2,7 +2,7 @@ body{background-color: #F4F5F6!important;}
 a{text-decoration: none!important;}
 *{scrollbar-width: thin;}
 #navigation{
-    background-color: #FFF;
+    background-color: #0BC619;
     z-index: 998;
     width: 60px;
     box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
@@ -21,7 +21,6 @@ a{text-decoration: none!important;}
 }
 .form-control:focus {
     color: #495057;
-    background-color: #fff;
     border-radius: 0.2rem;
     border: 1px solid #27AE60!important;
     outline: 0;
@@ -208,7 +207,7 @@ a{text-decoration: none!important;}
 }
 #navigation .icon-link {
     text-decoration: none;
-    color: #808B96!important;
+    color: #FFF!important;
     background: inherit;
     height: 50px;
 }
@@ -220,14 +219,14 @@ a{text-decoration: none!important;}
 }
 #navigation .icon-font:hover {
     text-decoration: none;
-    color: #0BC619!important;
+    color: #FFF!important;
     border-radius: 0.5rem;
 }
 #navigation .active, #navigation .active:hover {
     height: 40px;
     width: 100%;
-    background: #0BC619!important;
-    color: #FFF!important;
+    background: #FFF!important;
+    color: #0BC619!important;
     border-radius: 0.5rem;
     box-shadow: 0px 5px 10px -1px rgba(0, 0, 0, 0.15);
 }
@@ -264,10 +263,10 @@ a{text-decoration: none!important;}
     background: #EFEFEF;
     border-right: 0.25rem solid #EFEFEF;
 }
-.setting-list > .active {
+/* .setting-list > .active {
     border-right: 0.25rem solid limegreen;
     color: #0BC619!important
-}
+} */
 .setting-list > .active:hover {
     background: #FFF!important;
     border-right: 0.25rem solid limegreen;
@@ -509,11 +508,82 @@ body.dark .table th {
       linear-gradient(91deg, transparent 50%, #A9DFBF 50%),
       linear-gradient(90deg, #A9DFBF 50%, transparent 50%);
 }
-
-
-
-
-
+.modal-footer {
+    background: #E8F0F7;
+}
+#sla_label {
+    width: 50px;
+    text-align: center;
+}
+.page-link {
+    padding: 0.35rem 0.7rem!important;
+}
+.setting-list-menu {
+    height: calc(100vh - 56px);
+    width: 270px;
+    overflow-y: auto;
+    background: #FFF;
+    color: #FFF!important;
+}
+.settings-content {
+    height: calc(100vh - 56px);
+    background: #FFF;
+    overflow-y: auto;
+}
+.setting-item:hover {
+    background: #E5E8E8;
+    border-radius: 5px;
+}
+.setting-item.active {
+    background: #0BC619;
+    color: #FFF!important;
+    border-radius: 5px;
+    box-shadow: 0px 5px 10px -1px rgba(0, 0, 0, 0.15);
+}
+.st-icon {
+    width: 45px;
+    height: 45px;
+    text-align: center;
+}
+.badge-purple {
+    color: #FFF;
+    background-color: #8e44ad;
+}
+.text-sec {
+    color: #515F6F!important
+}
+.cursor-pointer {
+    cursor: pointer; 
+}
+@media (max-width: 576px){
+    .modal-dialog.modal-dialog-slideout {width: 80%}
+}
+.modal-dialog-slideout {
+    min-height: 100%; 
+    margin: 0 0 0 auto ;
+    background: #fff;
+}
+.modal.fade .modal-dialog.modal-dialog-slideout {-webkit-transform: translate(100%,0);transform: translate(100%,0);}
+.modal.fade.show .modal-dialog.modal-dialog-slideout {-webkit-transform: translate(0,0);transform: translate(0,0);flex-flow: column;}
+.modal-dialog-slideout .modal-content{border: 0;}
+.single-line-control{
+    font: inherit;
+    font-size: small;
+    color: #666666;
+    display: block;
+    border-radius: 0px!important;
+    border: 0px!important;
+    border-bottom: 1px solid #CED4DA!important;
+}
+.single-line-control:focus{
+    font: inherit;
+    font-size: small;
+    color: #666666;
+    display: block;
+    border-radius: 0px!important;
+    border: 0px!important;
+    border-bottom: 1px solid #0BC619!important;
+}
 
 
 

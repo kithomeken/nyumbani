@@ -13,6 +13,7 @@ use App\Region;
 use App\TicketStatus;
 use App\TicketTypes;
 use App\User;
+use App\SystemParams;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -78,7 +79,10 @@ class SettingsController extends Controller
     public function addType(Request $request) {
         $ticket_description = $request->ticket_description;
         $ticket_code = $request->ticket_code;
-        
+        $non_compliance = $request->non_compliance;
+        $escalate = $request->escalation_check;
+        $ttr = $request->sla_label;
+
         $validate = Validator::make($request->all(), [
             'ticket_code' => ['required', 'string', 'max:4', 'unique:ticket_types'],
             'ticket_description' => ['required', 'string', 'max:255'],
@@ -88,13 +92,48 @@ class SettingsController extends Controller
             return redirect()->back()->withErrors($validate)->withInput();
         }
 
+        # Get TTR Min & Max
+        $params = SystemParams::find(1);
         $user = Auth::user()->id;
 
-        $tickectType = TicketTypes::create([
-            'ticket_code' => $ticket_code,
-            'description' => $ticket_description,
-            'created_by'  => $user,
-        ]);
+        if ($ttr < $params->SYS_TTR_MIN) {
+            return redirect()->back()->with('error', 'Time to resolition cannot be less than ' . $params->SYS_TTR_MIN . ' hours');
+        } else if ($ttr > $params->SYS_TTR_MAX) {
+            return redirect()->back()->with('error', 'Time to resolution cannot be more than ' . $params->SYS_TTR_MAX . ' hours');
+        }
+        
+        if ($non_compliance == 1) {
+            # For Non Compliance
+            $ticketType = TicketTypes::create([
+                'ticket_code'    => $ticket_code,
+                'description'    => $ticket_description,
+                'ttr'            => $ttr,
+                'created_by'     => $user,
+            ]);
+        } else {
+            # For Compliance Tickets
+            $ticketType = TicketTypes::create([
+                'ticket_code'    => $ticket_code,
+                'description'    => $ticket_description,
+                'ttr'            => $ttr,
+                'escalate'       => 'Y',
+                'compliwwance'     => 'Y',
+                'created_by'     => $user,
+            ]);
+        }
+
+        # Add to Escalation Matrix
+        try {
+            $ticketType = TicketTypes::where('ticket_code', $ticket_code)->first();
+
+            EscalationType::create([
+                'ticket_description' => $ticket_description,
+                'ticket_code' => $ticket_code,
+                'system_defined' => $ticketType->system_defined,
+            ]);
+        } catch (Exception $ex) {
+            return $ex;
+        }
 
         return redirect()->back()->with('success', 'New Ticket Type Added');
     }

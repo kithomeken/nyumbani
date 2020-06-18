@@ -15,11 +15,14 @@ class CreateTicketTypesTable extends Migration
     {
         Schema::create('ticket_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
             $table->string('ticket_code')->unique();
-            $table->string('system_defined')->default('N');
+            $table->string('description');
+            $table->integer('ttr');
+            $table->string('compliance', 1)->default('N');
+            $table->string('escalate', 1)->default('N');
             $table->string('created_by');
             $table->string('deleted')->default('N');
+            $table->string('system_defined')->default('N');
             $table->timestamps();
         });
     }

@@ -24,15 +24,15 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 
 ## Nyumbani Demo
 
-To interact with the demo and have a hands on experience sign in with any of the accounts below. 
+To interact with the [Nyumbani Demo](https://nyumbani.kennedykitho.me) and have a hands on experience sign in with any of the accounts below. 
 Kindly note that web application is not complete and you might face some errors here and there. But I'm working on fix them as soon as possible. 
 
-- ** annetbach@email.com
-- ** claudianadel@email.com
-- ** eugenebriner@email.com
-- ** michaelpadilla@email.com
+- annetbach@email.com
+- claudianadel@email.com
+- eugenebriner@email.com
+- michaelpadilla@email.com
 
-- ** Password: 12345678
+- Password: 12345678
 
 I hope you enjoy
 

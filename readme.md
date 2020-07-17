@@ -1,6 +1,6 @@
 ## About Nyumbani
 
-Nyumbanis is a web application created by laravel framework that offers ticket service management functionalities in enterprise models. It takes the pain of having users track what issues are pending, which are the most important and which are quick fixes. Nyumbani organizes everything for you and displays them for you ready for action.
+Nyumbani is a web application created by laravel framework that offers ticket service management functionalities in enterprise models. It takes the pain of having users track what issues are pending, which are the most important and which are quick fixes. Nyumbani organizes everything for you and displays them for you ready for action.
 
 ## About Laravel
 

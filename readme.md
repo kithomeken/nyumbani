@@ -32,7 +32,7 @@ Kindly note that web application is not complete and you might face some errors 
 - eugenebriner@email.com
 - michaelpadilla@email.com
 
-- Password: 12345678
+Password: 12345678
 
 I hope you enjoy
 
